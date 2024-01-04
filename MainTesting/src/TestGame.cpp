@@ -1,7 +1,7 @@
 #include "TestGame.h"
 
 
-struct MoveScript : public ProjectAlpha::Script {
+struct WSADControlScript : public ProjectAlpha::Script {
 	void OnUpdate() override {
 
 		auto& physics = m_entity.Get<ProjectAlpha::PhysicsComponent>();
@@ -35,21 +35,19 @@ struct CameraZoomScript : public ProjectAlpha::Script {
 TestGame::TestGame() {
 	using namespace ProjectAlpha;
 
-	auto player = this->GetScene().CreateEntity("player");
-	auto& transform = player.Add<TransformComponent>(100.0f,100.0f);
-	//transform.Position = { 100, 100 };
+	/*Make BLue Square*/ {
+		auto player = this->GetScene().CreateEntity("player");
+		auto& transform = player.Add<TransformComponent>(100.0f, 100.0f);
+		auto& square = player.Add<SquareComponent>();
+		square.color = { 0,255,255, 0 };
+		square.height = 100;
+		square.width = 100;
 
-	
-	auto& square = player.Add<SquareComponent>();
-	square.color = { 0,255,255, 0 };
-	square.height = 100;
-	square.width = 100;
+		auto& physics = player.Add<PhysicsComponent>();
+		physics.Speed = 10;
+	}
 
-	auto& physics = player.Add<PhysicsComponent>();
-	physics.Speed = 10;
-
-
-	{
+	/*Make orange square*/ {
 		auto boo = this->GetScene().CreateEntity("boo");
 		auto& transform = boo.Add<TransformComponent>(400.0f, 400.0f);
 		auto& square = boo.Add<SquareComponent>();
@@ -58,7 +56,7 @@ TestGame::TestGame() {
 		square.height = 30;
 	}
 
-	{
+	/*Create Camera*/ {
 		auto camera = this->GetScene().CreateEntity("camera");
 		auto& transform = camera.Add<TransformComponent>(0.0f, 0.0f);
 		transform.Scale = 1;
@@ -68,7 +66,7 @@ TestGame::TestGame() {
 		cameraComp.ViewWidth = GetRenderer().GetViewPortWidth();
 		cameraComp.ViewHeight = GetRenderer().GetViewPortHeight();
 		auto& scripts = camera.Add<ScriptComponent>(camera);
-		scripts.Add<MoveScript>();
+		scripts.Add<WSADControlScript>();
 	}
 
 
