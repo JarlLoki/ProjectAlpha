@@ -11,6 +11,7 @@ struct Script {
 	//Entity entity;
 
 	virtual void OnInit() {}
+	virtual void OnEvent() {}
 	virtual void OnUpdate() {}
 	virtual void OnDestroy() {}
 

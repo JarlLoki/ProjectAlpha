@@ -19,6 +19,16 @@ struct MoveScript : public ProjectAlpha::Script {
 	}
 };
 
+struct CameraZoomScript : public ProjectAlpha::Script {
+
+	void OnEvent() override {
+
+	}
+
+	void OnUpdate() override {
+
+	}
+};
 
 
 
