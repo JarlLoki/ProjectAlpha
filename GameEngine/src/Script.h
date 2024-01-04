@@ -11,7 +11,7 @@ struct Script {
 	//Entity entity;
 
 	virtual void OnInit() {}
-	virtual void OnEvent() {}
+	virtual void OnEvent(SDL_Event* event) {}
 	virtual void OnUpdate() {}
 	virtual void OnDestroy() {}
 

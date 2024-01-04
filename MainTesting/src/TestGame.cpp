@@ -21,7 +21,7 @@ struct MoveScript : public ProjectAlpha::Script {
 
 struct CameraZoomScript : public ProjectAlpha::Script {
 
-	void OnEvent() override {
+	void OnEvent(SDL_Event* event) override {
 
 	}
 
