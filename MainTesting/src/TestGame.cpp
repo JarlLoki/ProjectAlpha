@@ -4,7 +4,7 @@
 struct WSADControlScript : public ProjectAlpha::Script {
 	void OnUpdate() override {
 
-		auto& physics = m_entity.Get<ProjectAlpha::PhysicsComponent>();
+		auto& physics = m_entity.Get<Components::Physics>();
 
 		auto keys = SDL_GetKeyboardState(NULL);
 		ProjectAlpha::Vector2D dir = 0;
@@ -22,6 +22,78 @@ struct WSADControlScript : public ProjectAlpha::Script {
 struct CameraZoomScript : public ProjectAlpha::Script {
 
 	void OnEvent(SDL_Event* event) override {
+		switch (event->type) {
+		case SDL_KEYDOWN:
+			if (event->key.repeat == 0) {
+				switch (event->key.keysym.sym) {
+				case SDL_KeyCode::SDLK_UP:
+				{
+				
+					auto& transform = m_entity.Get<Components::Transform>();
+					auto& camera = m_entity.Get<Components::Camera>();
+
+					const float viewPortW = static_cast<float>(m_renderer.GetViewPortWidth());
+					const float viewPortH = static_cast<float>(m_renderer.GetViewPortHeight());
+					
+					int cW = (camera.ViewWidth / 2);
+					int cH = (camera.ViewHeight / 2);
+
+					camera.ZoomScale += 0.1f;
+					transform.Scale = viewPortW / (viewPortW * camera.ZoomScale);
+
+					camera.ViewWidth = viewPortW * transform.Scale;
+					camera.ViewHeight = viewPortH * transform.Scale;
+
+
+					int newCW = (camera.ViewWidth / 2);
+					int newCH = (camera.ViewHeight / 2);
+
+					int xOffset = cW - newCW;
+					int yOffset = cH - newCH;
+
+					transform.Position.x += xOffset;
+					transform.Position.y += yOffset;
+					//*/
+
+				
+				}
+				break;
+
+				case SDL_KeyCode::SDLK_DOWN:
+				{
+					auto& entities = m_scene.GetEntities();
+					auto view = entities.view<CameraComponent, TransformComponent>();
+					for (auto entity : view) {
+						auto& transform = view.get<TransformComponent>(entity);
+						auto& camera = view.get<CameraComponent>(entity);
+
+						const float viewPortW = static_cast<float>(m_renderer.GetViewPortWidth());
+						const float viewPortH = static_cast<float>(m_renderer.GetViewPortHeight());
+
+						int cW = (camera.ViewWidth / 2);
+						int cH = (camera.ViewHeight / 2);
+
+						camera.ZoomScale -= 0.1f;
+
+						transform.Scale = viewPortW / (viewPortW * camera.ZoomScale);
+						camera.ViewWidth = viewPortW * transform.Scale;
+						camera.ViewHeight = viewPortH * transform.Scale;
+						int newCW = (camera.ViewWidth / 2);
+						int newCH = (camera.ViewHeight / 2);
+
+						int xOffset = cW - newCW;
+						int yOffset = cH - newCH;
+
+						transform.Position.x += xOffset;
+						transform.Position.y += yOffset;
+
+					}
+				}
+				break;
+				}
+			}
+			break;
+		}
 
 	}
 
@@ -67,6 +139,8 @@ TestGame::TestGame() {
 		cameraComp.ViewHeight = GetRenderer().GetViewPortHeight();
 		auto& scripts = camera.Add<ScriptComponent>(camera);
 		scripts.Add<WSADControlScript>();
+		GetWindow().GetWidth();
+		
 	}
 
 

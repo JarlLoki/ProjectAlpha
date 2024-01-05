@@ -14,6 +14,7 @@
     <ClInclude Include="include\ProjectAlpha.h" />
     <ClInclude Include="src\Assert.h" />
     <ClInclude Include="src\Graphics\Camera.h" />
+    <ClInclude Include="src\Scene\CameraSystem.h" />
     <ClInclude Include="src\Scene\Components.h" />
     <ClInclude Include="src\ECS\ECS.h" />
     <ClInclude Include="src\Game.h" />

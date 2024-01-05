@@ -1,4 +1,5 @@
 #pragma once
+#include "SDL.h"
 #include "entt/entt.hpp"
 #include "System.h"
 
@@ -14,6 +15,7 @@ public:
 
 	Entity CreateEntity(std::string tag);
 
+	void OnEvent(SDL_Event* event);
 	void OnUpdate();
 	void OnRender(Renderer& renderer);
 	

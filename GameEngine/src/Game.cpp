@@ -46,81 +46,12 @@ void Game::Event() {
 		//Window Events:
 		m_window.OnEvent(event);
 
+		//Scene Events:
+		m_scene.OnEvent(&event);
+
+
 		//Key Presses:
-		switch (event.type) {
-		case SDL_KEYDOWN:
-			if (event.key.repeat == 0) {
-				switch (event.key.keysym.sym) {
-				case SDL_KeyCode::SDLK_UP:
-				{
-					auto& entities = m_scene.GetEntities();
-					auto view = entities.view<CameraComponent, TransformComponent>();
-					for (auto entity : view) {
-						auto& transform = view.get<TransformComponent>(entity);
-						auto& camera = view.get<CameraComponent>(entity);
-
-						const float viewPortW = static_cast<float>(m_renderer.GetViewPortWidth());
-						const float viewPortH = static_cast<float>(m_renderer.GetViewPortHeight());			
-
-						int cW = (camera.ViewWidth / 2);
-						int cH = (camera.ViewHeight / 2);
-
-						camera.ZoomScale += 0.1f;
-						transform.Scale = viewPortW / (viewPortW * camera.ZoomScale);
-
-						camera.ViewWidth = viewPortW * transform.Scale;
-						camera.ViewHeight = viewPortH * transform.Scale;
-
-
-						int newCW = (camera.ViewWidth / 2);
-						int newCH = (camera.ViewHeight / 2);
-
-						int xOffset = cW - newCW;
-						int yOffset = cH - newCH;
-
-						transform.Position.x += xOffset;
-						transform.Position.y += yOffset;
-						//*/
-						
-					}
-				}
-					break;
-
-				case SDL_KeyCode::SDLK_DOWN:
-				{
-					auto& entities = m_scene.GetEntities();
-					auto view = entities.view<CameraComponent, TransformComponent>();
-					for (auto entity : view) {
-						auto& transform = view.get<TransformComponent>(entity);
-						auto& camera = view.get<CameraComponent>(entity);
-
-						const float viewPortW = static_cast<float>(m_renderer.GetViewPortWidth());
-						const float viewPortH = static_cast<float>(m_renderer.GetViewPortHeight());
-
-						int cW = (camera.ViewWidth / 2);
-						int cH = (camera.ViewHeight / 2);
-
-						camera.ZoomScale -= 0.1f;
-
-						transform.Scale = viewPortW / (viewPortW * camera.ZoomScale);
-						camera.ViewWidth = viewPortW * transform.Scale;
-						camera.ViewHeight = viewPortH * transform.Scale;
-						int newCW = (camera.ViewWidth / 2);
-						int newCH = (camera.ViewHeight / 2);
-
-						int xOffset = cW - newCW;
-						int yOffset = cH - newCH;
-
-						transform.Position.x += xOffset;
-						transform.Position.y += yOffset;
-						
-					}
-				}
-					break;
-				}
-			}
-			break;
-		}
+		
 
 	}
 

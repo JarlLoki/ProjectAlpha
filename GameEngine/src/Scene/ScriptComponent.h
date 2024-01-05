@@ -9,7 +9,13 @@ public:
 	~ScriptComponent() = default;
 	ScriptComponent(const ScriptComponent&) = delete;
 
-	void Update() {
+	void OnEvent(SDL_Event* event) {
+		for (auto& script : m_scripts) {
+			script->OnEvent(event);
+		}
+	}
+
+	void OnUpdate() {
 		for (auto& script : m_scripts) {
 			script->OnUpdate();
 		}

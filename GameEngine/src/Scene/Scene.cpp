@@ -22,6 +22,12 @@ Entity Scene::CreateEntity(std::string tag = "Entity") {
 	return entity;
 }
 
+void Scene::OnEvent(SDL_Event* event) {
+	for (auto& system : m_systems) {
+		system->OnEvent(event);
+	}
+}
+
 void Scene::OnUpdate() {
 	for (auto& system : m_systems) {
 		system->OnUpdate();
