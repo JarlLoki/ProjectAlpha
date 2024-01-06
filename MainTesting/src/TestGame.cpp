@@ -27,15 +27,17 @@ struct CameraZoomScript : public ProjectAlpha::Script {
 			if (event->key.repeat == 0) {
 				switch (event->key.keysym.sym) {
 				case SDL_KeyCode::SDLK_UP:
-					
+				{
 					auto& camera = m_entity.Get<Components::Camera>();
 					camera.ZoomScale += 0.1f;
+				}
 				break;
 
 				case SDL_KeyCode::SDLK_DOWN:
-
+				{
 					auto& camera = m_entity.Get<Components::Camera>();
 					camera.ZoomScale -= 0.1f;
+				}
 				break;
 				}
 			}

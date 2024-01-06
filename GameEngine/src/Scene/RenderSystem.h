@@ -21,10 +21,7 @@ struct RenderSystem : public System {
 				auto& transform = view.get<TransformComponent>(entity);
 				auto& square = view.get<SquareComponent>(entity);
 
-				Rect rect{ static_cast<int>(transform.Position.x),
-						   static_cast<int>(transform.Position.y),
-						   static_cast<int>(square.width * transform.Scale),
-						   static_cast<int>(square.height * transform.Scale) };
+
 
 				//Get view scaler (replace this with a view matrix?)
 				const float zoomScale = cameraView.get<CameraComponent>(camera).ZoomScale;
@@ -38,8 +35,17 @@ struct RenderSystem : public System {
 				Vector2D viewScalar = cameraPos - (cameraSize / 2) + cameraOffset;
 
 				//apply view scaler				
-				rect.x -= static_cast<int>(viewScalar.x);
-				rect.y -= static_cast<int>(viewScalar.y);
+				//rect.x -= static_cast<int>(viewScalar.x);
+				//rect.y -= static_cast<int>(viewScalar.y);
+				
+				
+
+				
+				Rect rect{ static_cast<int>(transform.Position.x-viewScalar.x),
+						   static_cast<int>(transform.Position.y-viewScalar.y),
+		                   static_cast<int>(square.width * transform.Scale),
+		                   static_cast<int>(square.height * transform.Scale) };
+				
 				
 
 				
