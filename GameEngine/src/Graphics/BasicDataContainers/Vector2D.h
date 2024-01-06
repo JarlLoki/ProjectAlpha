@@ -24,17 +24,17 @@ struct Vector2D {
 	void Normalize();
 
 	void operator=(const float val);
-	Vector2D operator+(const Vector2D& vector2);
-	Vector2D operator+(const float rval);
+	Vector2D operator+(const Vector2D& vector2) const;
+	Vector2D operator+(const float rval) const;
 
-	Vector2D operator-(const Vector2D& vector2);
-	Vector2D operator-(const float rval);
+	Vector2D operator-(const Vector2D& vector2) const;
+	Vector2D operator-(const float rval) const;
 
-	Vector2D operator*(const Vector2D& vector2);
-	Vector2D operator*(const float rval);
+	Vector2D operator*(const Vector2D& vector2) const;
+	Vector2D operator*(const float rval) const;
 
-	Vector2D operator/(const Vector2D& vector2);
-	Vector2D operator/(const float rval);
+	Vector2D operator/(const Vector2D& vector2) const;
+	Vector2D operator/(const float rval) const;
 
 
 	Vector2D& operator+=(const Vector2D& vector2);

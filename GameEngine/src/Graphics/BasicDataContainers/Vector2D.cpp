@@ -34,41 +34,41 @@ void Vector2D::operator=(const float val) {
 	y = val;
 }
 // OPERATOR +
-Vector2D Vector2D::operator+(const Vector2D& vector2) {
+Vector2D Vector2D::operator+(const Vector2D& vector2) const {
 	Vector2D result(this->x + vector2.x, this->y + vector2.y);
 	return result;
 }
-Vector2D Vector2D::operator+(const float rval) {
+Vector2D Vector2D::operator+(const float rval) const {
 	Vector2D result(this->x + rval, this->y + rval);
 	return result;
 }
 
 // OPREATOR -
-Vector2D Vector2D::operator-(const Vector2D& vector2) {
+Vector2D Vector2D::operator-(const Vector2D& vector2) const {
 	Vector2D result(this->x - vector2.x, this->y - vector2.y);
 	return result;
 }
-Vector2D Vector2D::operator-(const float rval) {
+Vector2D Vector2D::operator-(const float rval) const {
 	Vector2D result(this->x - rval, this->y - rval);
 	return result;
 }
 
 //OPERATOR *
-Vector2D Vector2D::operator*(const Vector2D& vector2) {
+Vector2D Vector2D::operator*(const Vector2D& vector2) const {
 	Vector2D result(this->x * vector2.x, this->y * vector2.y);
 	return result;
 }
-Vector2D Vector2D::operator*(const float rval) {
+Vector2D Vector2D::operator*(const float rval) const {
 	Vector2D result(this->x * rval, this->y * rval);
 	return result;
 }
 
 //OPERATOR /
-Vector2D Vector2D::operator/(const Vector2D& vector2) {
+Vector2D Vector2D::operator/(const Vector2D& vector2) const {
 	Vector2D result(this->x / vector2.x, this->y / vector2.y);
 	return result;
 }
-Vector2D Vector2D::operator/(const float rval) {
+Vector2D Vector2D::operator/(const float rval) const {
 	Vector2D result(this->x / rval, this->y / rval);
 	return result;
 }

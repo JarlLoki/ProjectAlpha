@@ -1,6 +1,7 @@
 #pragma once
 #include "SDL.h"
 
+
 namespace ProjectAlpha {
 class Scene;
 class Renderer;

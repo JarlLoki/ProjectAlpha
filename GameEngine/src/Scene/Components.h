@@ -60,8 +60,7 @@ struct CameraComponent {
 	int ViewWidth;
 	int ViewHeight;
 	float ZoomScale;
-
-	Window* window;
+	Vector2D offSet;
 };
 
 

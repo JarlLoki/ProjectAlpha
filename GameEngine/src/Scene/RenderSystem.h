@@ -26,12 +26,24 @@ struct RenderSystem : public System {
 						   static_cast<int>(square.width * transform.Scale),
 						   static_cast<int>(square.height * transform.Scale) };
 
-				//apply view scaler
-				rect.x -= cameraView.get<TransformComponent>(camera).Position.x;
-				rect.y -= cameraView.get<TransformComponent>(camera).Position.y;
+				//Get view scaler (replace this with a view matrix?)
+				const float zoomScale = cameraView.get<CameraComponent>(camera).ZoomScale;
+				const Vector2D viewPort = { renderer.GetViewPortWidth(),
+				     					  renderer.GetViewPortHeight() };
 
-				float scale = cameraView.get<CameraComponent>(camera).ZoomScale;
-				renderer.DrawRect(rect, square.color, true, scale);
+				//Vector2D cameraSize = viewPort - (viewPort * (zoomScale - 1));
+				Vector2D cameraSize = viewPort * (viewPort / (viewPort * zoomScale));
+				Vector2D cameraPos = cameraView.get<TransformComponent>(camera).Position;
+				Vector2D cameraOffset = cameraView.get<CameraComponent>(camera).offSet;
+				Vector2D viewScalar = cameraPos - (cameraSize / 2) + cameraOffset;
+
+				//apply view scaler				
+				rect.x -= static_cast<int>(viewScalar.x);
+				rect.y -= static_cast<int>(viewScalar.y);
+				
+
+				
+				renderer.DrawRect(rect, square.color, true, zoomScale);
 			}
 		}
 

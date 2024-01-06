@@ -27,78 +27,20 @@ struct CameraZoomScript : public ProjectAlpha::Script {
 			if (event->key.repeat == 0) {
 				switch (event->key.keysym.sym) {
 				case SDL_KeyCode::SDLK_UP:
-				{
-				
-					auto& transform = m_entity.Get<Components::Transform>();
-					auto& camera = m_entity.Get<Components::Camera>();
-
-					const float viewPortW = static_cast<float>(m_renderer.GetViewPortWidth());
-					const float viewPortH = static_cast<float>(m_renderer.GetViewPortHeight());
 					
-					int cW = (camera.ViewWidth / 2);
-					int cH = (camera.ViewHeight / 2);
-
+					auto& camera = m_entity.Get<Components::Camera>();
 					camera.ZoomScale += 0.1f;
-					transform.Scale = viewPortW / (viewPortW * camera.ZoomScale);
-
-					camera.ViewWidth = viewPortW * transform.Scale;
-					camera.ViewHeight = viewPortH * transform.Scale;
-
-
-					int newCW = (camera.ViewWidth / 2);
-					int newCH = (camera.ViewHeight / 2);
-
-					int xOffset = cW - newCW;
-					int yOffset = cH - newCH;
-
-					transform.Position.x += xOffset;
-					transform.Position.y += yOffset;
-					//*/
-
-				
-				}
 				break;
 
 				case SDL_KeyCode::SDLK_DOWN:
-				{
-					auto& entities = m_scene.GetEntities();
-					auto view = entities.view<CameraComponent, TransformComponent>();
-					for (auto entity : view) {
-						auto& transform = view.get<TransformComponent>(entity);
-						auto& camera = view.get<CameraComponent>(entity);
 
-						const float viewPortW = static_cast<float>(m_renderer.GetViewPortWidth());
-						const float viewPortH = static_cast<float>(m_renderer.GetViewPortHeight());
-
-						int cW = (camera.ViewWidth / 2);
-						int cH = (camera.ViewHeight / 2);
-
-						camera.ZoomScale -= 0.1f;
-
-						transform.Scale = viewPortW / (viewPortW * camera.ZoomScale);
-						camera.ViewWidth = viewPortW * transform.Scale;
-						camera.ViewHeight = viewPortH * transform.Scale;
-						int newCW = (camera.ViewWidth / 2);
-						int newCH = (camera.ViewHeight / 2);
-
-						int xOffset = cW - newCW;
-						int yOffset = cH - newCH;
-
-						transform.Position.x += xOffset;
-						transform.Position.y += yOffset;
-
-					}
-				}
+					auto& camera = m_entity.Get<Components::Camera>();
+					camera.ZoomScale -= 0.1f;
 				break;
 				}
 			}
 			break;
 		}
-
-	}
-
-	void OnUpdate() override {
-
 	}
 };
 
@@ -116,7 +58,18 @@ TestGame::TestGame() {
 		square.width = 100;
 
 		auto& physics = player.Add<PhysicsComponent>();
-		physics.Speed = 10;
+		physics.Speed = 5;
+
+		auto& cameraComp = player.Add<CameraComponent>();
+		cameraComp.ZoomScale = 1;
+		cameraComp.offSet = { square.width / 2, square.height / 2 };
+		auto& scripts = player.Add<ScriptComponent>(player);
+		scripts.Add<WSADControlScript>();
+		scripts.Add<CameraZoomScript>();
+
+
+
+
 	}
 
 	/*Make orange square*/ {
@@ -132,14 +85,18 @@ TestGame::TestGame() {
 		auto camera = this->GetScene().CreateEntity("camera");
 		auto& transform = camera.Add<TransformComponent>(0.0f, 0.0f);
 		transform.Scale = 1;
-		auto& Physics = camera.Add<PhysicsComponent>();
+		auto& physics = camera.Add<PhysicsComponent>();
+		physics.Speed = 5;
+
+		/*
 		auto& cameraComp = camera.Add<CameraComponent>();
 		cameraComp.ZoomScale = 1;
 		cameraComp.ViewWidth = GetRenderer().GetViewPortWidth();
 		cameraComp.ViewHeight = GetRenderer().GetViewPortHeight();
 		auto& scripts = camera.Add<ScriptComponent>(camera);
 		scripts.Add<WSADControlScript>();
-		GetWindow().GetWidth();
+		scripts.Add<CameraZoomScript>();
+		*/
 		
 	}
 
