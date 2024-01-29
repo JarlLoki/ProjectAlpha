@@ -2,6 +2,7 @@
 #include "SDL.h"
 #include "entt/entt.hpp"
 #include "System.h"
+#include "../Graphics/BasicDataContainers/Rect.h"
 
 namespace ProjectAlpha {
 
@@ -11,7 +12,9 @@ class Renderer;
 class Scene {
 public:
 	Scene();
-	~Scene() = default;
+	Scene(std::string name);
+
+	std::string GetName() { return m_name; }
 
 	Entity CreateEntity(std::string tag);
 
@@ -22,9 +25,11 @@ public:
 	template <typename T>
 	void AddSystem();
 
-	inline entt::registry& GetEntities() { return m_entities; }
+	inline entt::registry& GetRegistry() { return m_entities; }
+	Entity GetEntity(entt::entity id);
 
-private:
+protected:
+	std::string m_name;
 	entt::registry m_entities;
 	std::vector<std::unique_ptr<System>> m_systems;
 

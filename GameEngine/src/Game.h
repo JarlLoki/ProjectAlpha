@@ -1,7 +1,9 @@
 #pragma once
+#include "Layer.h"
 #include "Graphics/Window.h"
 #include "Graphics/Renderer.h"
-#include "Scene/Scene.h"
+#include "Graphics/FontManager.h"
+#include "Scene/SceneManager.h"
 #include "Scene/Entity.h"
 #include "Scene/Components.h"
 #include "Scene/System.h"
@@ -17,11 +19,12 @@ public:
 
 	void Run();
 
-protected:
+//protected:
 	inline Window& GetWindow() { return m_window; }
 	inline Renderer& GetRenderer() { return m_renderer; }
 	inline Scene& GetScene() { return m_scene; }
 
+	SceneManager Scenes;
 
 private:
 	void Init();

@@ -3,15 +3,24 @@
 #include "Components.h"
 #include "RenderSystem.h"
 #include "ScriptSystem.h"
-
+#include "CollisionSystem.h"
+#include "MovementSystem.h"
 
 namespace ProjectAlpha {
 Scene::Scene() {
+	AddSystem<ScriptSystem>();
+	AddSystem<MovementSystem>();
+	AddSystem<CollisionSystem>();
 
 	AddSystem<RenderSystem>();
+}
+Scene::Scene(std::string name) {
+	m_name = name;
 	AddSystem<ScriptSystem>();
-	//AddSystem<MovementSystem>();
-	//AddSystem<CollisionSystem>();
+	AddSystem<MovementSystem>();
+	AddSystem<CollisionSystem>();
+
+	AddSystem<RenderSystem>();
 
 
 }
@@ -38,6 +47,10 @@ void Scene::OnRender(Renderer& renderer) {
 	for (auto& system : m_systems) {
 		system->OnRender(renderer);
 	}
+}
+
+Entity Scene::GetEntity(entt::entity id) { 
+	return Entity(id, this); 
 }
 
 } //END namespace ProjectAlpha

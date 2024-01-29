@@ -36,8 +36,15 @@ public:
 
 	template<typename T>
 	bool Has() {
+		//if (m_scene->m_entities.owned<T>())
+		//	return m_scene->m_entities.all_of<T>(m_entityHandle);
+		//else
+		//	return false;
+		//return m_scene->m_entities.any_of<T>(m_entityHandle);
 
-		return m_scene.lock()->m_entities.has<T>(m_entityHandle);
+		return m_scene->m_entities.all_of<T>(m_entityHandle);
+
+		//return false;
 	}
 
 	operator bool() const { return static_cast<uint32_t>(m_entityHandle) != 0; }

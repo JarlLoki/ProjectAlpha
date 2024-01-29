@@ -4,6 +4,7 @@
 
 namespace ProjectAlpha{
 struct ScriptComponent;
+class Game;
 
 struct Script {
 	Script() = default;
@@ -19,6 +20,9 @@ protected:
 	std::string m_type;
 	Entity m_entity;
 	
+	static Game* m_game;
+	friend Game;
+
 	friend ScriptComponent;
 };
 

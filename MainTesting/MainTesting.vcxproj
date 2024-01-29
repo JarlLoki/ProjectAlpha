@@ -94,7 +94,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\MenuScene.h" />
     <ClCompile Include="src\TestGame.cpp" />
+    <ClCompile Include="src\TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

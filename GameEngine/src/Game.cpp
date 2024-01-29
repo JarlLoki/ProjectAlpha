@@ -5,6 +5,9 @@ namespace ProjectAlpha {
 Game::Game() {
 
 	Init();
+
+	//Initilize scripts:
+	Script::m_game = this;
 }
 
 void Game::Run() {
@@ -63,58 +66,10 @@ void Game::Event() {
 void Game::Update() {
 
 	m_window.OnUpdate();
+
+	auto& entities = m_scene.GetRegistry();
+
 	m_scene.OnUpdate();
-
-	auto& entities = m_scene.GetEntities();
-	//Update Player Movement
-	/*
-	auto keys = SDL_GetKeyboardState(NULL);
-
-	auto& entities = m_scene.GetEntities();
-	auto view = entities.view<TagComponent, PhysicsComponent>();
-	for (auto entity : view) {
-		auto& tag = view.get<TagComponent>(entity);
-		auto& physics = view.get<PhysicsComponent>(entity);
-		if (tag.GetTag() == "camera") {
-			Vector2D dir;
-			//Apply Up Direction
-			if (keys[SDL_SCANCODE_W]) dir.y -= 1;
-			if (keys[SDL_SCANCODE_S]) dir.y += 1;
-			if (keys[SDL_SCANCODE_A]) dir.x -= 1;
-			if (keys[SDL_SCANCODE_D]) dir.x += 1;
-
-			physics.Direction = dir;
-		}
-	}
-
-	{
-		auto& entities = m_scene.GetEntities();
-		auto view = entities.view<CameraComponent, TransformComponent>();
-		for (auto entity : view) {
-			
-		}
-
-	}
-	*/
-
-	//Move Objects
-	//auto& entities = m_scene.GetEntities();
-
-	auto view2 = entities.view<TransformComponent, PhysicsComponent>();
-	for (auto entity : view2) {
-		auto& transform = view2.get<TransformComponent>(entity);
-		auto& physics = view2.get<PhysicsComponent>(entity);
-
-		physics.Direction.Normalize();
-		Vector2D velocity = physics.Direction * physics.Speed;
-
-		if (physics.IsMovable) {
-			transform.Position += velocity;
-		}
-
-	}
-
-
 }
 
 void Game::Render() {
@@ -127,7 +82,7 @@ void Game::Render() {
 	//this->entities->Draw(m_renderer);
 	//or
 	//m_renderer.DrawEntities(entities);
-	auto& entities = m_scene.GetEntities();
+	auto& entities = m_scene.GetRegistry();
 
 	//Draw Squares
 

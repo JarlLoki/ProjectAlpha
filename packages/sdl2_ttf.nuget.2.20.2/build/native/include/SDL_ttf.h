@@ -1265,7 +1265,7 @@ extern DECLSPEC SDL_Surface * SDLCALL TTF_RenderText_Shaded(TTF_Font *font,
  *
  * This function will allocate a new 8-bit, palettized surface. The surface's
  * 0 pixel will be the specified background color, while other pixels have
- * varying degrees of the foreground color. This function returns the new
+ * varying degrees of the foreground color. This func6tion returns the new
  * surface, or NULL if there was an error.
  *
  * This will not word-wrap the string; you'll get a surface with a single line

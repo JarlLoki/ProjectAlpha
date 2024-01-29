@@ -14,15 +14,23 @@ int Text::GetFontSize() const { return m_fontSize; }
 Color Text::GetColor() const { return m_color; }
 
 
+
+
 // RenderedText
 ////////////////////////////
-RenderedText::RenderedText(Text text, SDL_Texture* texture, int w, int h) :
-	Text(text), m_textTexture(texture), m_width(w), m_height(h) {
+RenderedText::RenderedText(Text text, Texture texture)
+	: Text(text), m_texture(texture) {}
+
+RenderedText::~RenderedText() {
+	if (!m_texture.data) {
+		SDL_DestroyTexture(m_texture.data);
+		m_texture.data = nullptr;
+	}
 }
 
-SDL_Texture* RenderedText::GetTexture() const { return m_textTexture; }
-int RenderedText::GetWdith() const { return m_width; }
-int RenderedText::GetHeight() const { return m_height; }
+Texture RenderedText::GetTexture() const { return m_texture; }
+int RenderedText::GetWdith() const { return m_texture.SrcRect.w; }
+int RenderedText::GetHeight() const { return m_texture.SrcRect.h; }
 
 bool operator == (const RenderedText& lvalue, const Text& rvalue) {
 	if (lvalue.GetFontName() == rvalue.GetFontName() &&

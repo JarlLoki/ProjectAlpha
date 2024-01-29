@@ -17,7 +17,8 @@ struct Rect {
 	void operator=(const int& rv_int);
 };
 
-inline bool operator==(const Rect& lv, const int& rv_int);
+bool operator==(const Rect& lv, const int& rv_int);
+bool operator==(const Rect& lv, const Rect& rv);
 
 inline Rect operator*(const Rect& lv, const float& rv_float);
 

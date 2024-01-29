@@ -14,6 +14,9 @@
     <ClInclude Include="include\ProjectAlpha.h" />
     <ClInclude Include="src\Assert.h" />
     <ClInclude Include="src\Graphics\Camera.h" />
+    <ClInclude Include="src\Graphics\FontManager.h" />
+    <ClInclude Include="src\Layer.h" />
+    <ClInclude Include="src\LayerManager.h" />
     <ClInclude Include="src\Scene\CameraSystem.h" />
     <ClInclude Include="src\Scene\Components.h" />
     <ClInclude Include="src\ECS\ECS.h" />
@@ -30,11 +33,14 @@
     <ClInclude Include="src\Graphics\Window.h" />
     <ClInclude Include="src\Log.h" />
     <ClInclude Include="src\Scene\Entity.h" />
+    <ClInclude Include="src\Scene\MovementSystem.h" />
     <ClInclude Include="src\Scene\RenderSystem.h" />
     <ClInclude Include="src\Scene\Scene.h" />
+    <ClInclude Include="src\Scene\SceneManager.h" />
     <ClInclude Include="src\Scene\ScriptComponent.h" />
     <ClInclude Include="src\Scene\ScriptSystem.h" />
     <ClInclude Include="src\Scene\System.h" />
+    <ClInclude Include="src\Scene\CollisionSystem.h" />
     <ClInclude Include="src\Script.h" />
   </ItemGroup>
   <ItemGroup>
@@ -42,12 +48,14 @@
     <ClCompile Include="src\Graphics\BasicDataContainers\Point.cpp" />
     <ClCompile Include="src\Graphics\BasicDataContainers\Rect.cpp" />
     <ClCompile Include="src\Graphics\BasicDataContainers\Vector2D.cpp" />
+    <ClCompile Include="src\Graphics\FontManager.cpp" />
     <ClCompile Include="src\Graphics\Renderer.cpp" />
     <ClCompile Include="src\Graphics\Text.cpp" />
     <ClCompile Include="src\Graphics\Window.cpp" />
     <ClCompile Include="src\Log.cpp" />
     <ClCompile Include="src\Scene\Entity.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
+    <ClCompile Include="src\Script.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

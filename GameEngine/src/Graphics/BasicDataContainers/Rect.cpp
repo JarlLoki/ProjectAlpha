@@ -25,12 +25,23 @@ namespace ProjectAlpha {
 	h = rv_int;
 }
 
-bool operator==(const Rect& lv, const int& rv_int) {
+ bool operator==(const Rect& lv, const int& rv_int) {
 	if (lv.x == rv_int &&
 		lv.y == rv_int &&
 		lv.w == rv_int &&
 		lv.h == rv_int)
 		return true;
+
+	return false;
+}
+
+ bool operator==(const Rect& lv, const Rect& rv) {
+	if (lv.x == rv.x &&
+		lv.y == rv.y &&
+		lv.w == rv.w &&
+		lv.h == rv.h)
+		return true;
+
 	return false;
 }
 
