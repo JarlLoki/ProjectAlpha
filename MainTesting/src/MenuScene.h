@@ -1,8 +1,6 @@
-#include "TestGame.h"
-
+#include "ProjectAlpha.h"
 
 class MenuScript : public ProjectAlpha::Script {
-
 	void OnEvent(SDL_Event* event) override {
 		//On Mouse Click
 			//Check if click is over a menu,
@@ -10,6 +8,22 @@ class MenuScript : public ProjectAlpha::Script {
 				//Start Game!
 					//Load Game play scene
 					//Set gameplay scene as active
+
+
+		//Temp:
+		//On keypress:
+		switch (event->type) {
+		case SDL_KEYDOWN:
+			if (event->key.repeat == 0) {
+				switch (event->key.keysym.sym) {
+				case SDL_KeyCode::SDLK_F2:
+				{
+					m_game->Scenes.SetCurrentScene("Test");
+				}
+				break;
+				}
+			}
+		}
 		
 	}
 
@@ -19,34 +33,11 @@ class MenuScript : public ProjectAlpha::Script {
 };
 
 
-void LoadMenuScene(ProjectAlpha::Scene& scene) {
-
-	//Button 1
-	{
-		auto button = scene.CreateEntity("Button1");
-		auto transform = button.Add<Components::Transform>();
-		auto square = button.Add<ProjectAlpha::SquareComponent>();
-
-
-	}
-
-	//Button 2
-	{
-
-	}
-
-
-}
+class TestGame;
 
 class MenuScene : public ProjectAlpha::Scene {
-	MenuScene() : Scene("Menu") {
-		//Button 1
-		{
-			auto button = CreateEntity("Button1");
-		}
-
-
-	}
+public:
+	MenuScene(TestGame* Game);
 
 
 };

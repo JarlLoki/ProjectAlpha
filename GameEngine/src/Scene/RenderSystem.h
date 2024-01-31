@@ -31,9 +31,16 @@ void RenderSystem::OnRender(Renderer& renderer) {
 
 	Vector2D cameraPos = cameraView.get<TransformComponent>(camera).Position;
 	Vector2D cameraOffset = cameraView.get<CameraComponent>(camera).offSet;
-	Vector2D viewScalar = cameraPos - (cameraSize / 2) + cameraOffset;
+
+	Vector2D viewScalar;
+	if(cameraView.get<CameraComponent>(camera).Center)
+		viewScalar = cameraPos - (cameraSize / 2) + cameraOffset;
+	else
+		viewScalar = cameraPos + cameraOffset;
 
 
+	//Render Rectangles
+	////////////////////////////
 	{
 		auto view = m_scene->GetRegistry().view<TransformComponent,
 			SquareComponent>();
@@ -42,14 +49,17 @@ void RenderSystem::OnRender(Renderer& renderer) {
 			auto& square = view.get<SquareComponent>(entity);
 
 			
-			Rect rect{ static_cast<int>(transform.Position.x - viewScalar.x),
-					   static_cast<int>(transform.Position.y - viewScalar.y),
+			Rect rect{ static_cast<int>(transform.Position.x) - (int)viewScalar.x,
+					   static_cast<int>(transform.Position.y) - (int)viewScalar.y,
 					   static_cast<int>(square.width * transform.Scale),
 					   static_cast<int>(square.height * transform.Scale) };
 
 			renderer.DrawRect(rect, square.color, true, zoomScale);
 		}
 	}
+
+	//Render Text
+	////////////////////////////
 	{
 		auto group = m_scene->GetRegistry().group<TransformComponent,
 			TextComponent>();
@@ -72,8 +82,11 @@ void RenderSystem::OnRender(Renderer& renderer) {
 				Vector2D position{ transform.Position.x + cText.Position.x,
 							   transform.Position.y + cText.Position.y };	
 
+				position.x = static_cast<float>((int)position.x - (int)viewScalar.x);
+				position.y = static_cast<float>((int)position.y - (int)viewScalar.y);
+
 				renderer.DrawTexture(cText.RenderedText->GetTexture(), 
-							         position - viewScalar, zoomScale);
+							         position, zoomScale);
 			}
 			//Text couldnt be rendered, unable to draw
 			else {

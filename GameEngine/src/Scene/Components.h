@@ -110,8 +110,9 @@ private:
 struct CameraComponent {
 	int ViewWidth;
 	int ViewHeight;
-	float ZoomScale;
-	Vector2D offSet;
+	float ZoomScale = 1;
+	Vector2D offSet = { 0,0 };
+	bool Center = false;
 
 	CameraComponent() = default;
 	//CameraComponent(const CameraComponent&) = default;

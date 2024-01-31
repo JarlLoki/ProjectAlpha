@@ -77,7 +77,7 @@ void ResolveSolidCollision(Entity entityA,
 	Vector2D overlap = 0;
 	overlap.x = static_cast<float>(
 		std::min(curHitboxA.x + curHitboxA.w, curHitboxB.x + curHitboxB.w) -
-		std::max(curHitboxA.x, curHitboxB.x) 
+		std::max(curHitboxA.x, curHitboxB.x)
 		);
 
 	overlap.y = static_cast<float>(
@@ -90,7 +90,6 @@ void ResolveSolidCollision(Entity entityA,
 	Vector2D moveA = overlap;
 	Vector2D moveB = overlap;
 
-	//We only want to move object on the axis with the shortest overlap:
 	if (overlap.x > overlap.y) {
 		moveA.x = 0;
 		moveB.x = 0;

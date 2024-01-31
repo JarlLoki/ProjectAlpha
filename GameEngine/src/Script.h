@@ -9,6 +9,7 @@ class Game;
 struct Script {
 	Script() = default;
 	~Script() = default;
+	static void Init(Game* game) { m_game = game; }
 	//Entity entity;
 
 	virtual void OnInit() {}
@@ -21,7 +22,6 @@ protected:
 	Entity m_entity;
 	
 	static Game* m_game;
-	friend Game;
 
 	friend ScriptComponent;
 };

@@ -18,10 +18,11 @@ public:
 		m_currentScene = m_loadedScenes[sceneID];
 	}
 	
-	template<typename T>
-	void LoadScene() {
-		std::shared_ptr<Scene> scene((static_cast<Scene*>(new T)));
-		m_loadedScenes[scene.GetName()] = scene;
+	template<typename T, typename... TArgs>
+	void LoadScene(TArgs&&... mArgs) {
+		std::shared_ptr<Scene> scene((static_cast<Scene*>(new 
+			T(std::forward<TArgs>(mArgs)...))));
+		m_loadedScenes[scene->GetName()] = scene;
 	}
 private:
 	std::shared_ptr<Scene> m_currentScene;

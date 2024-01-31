@@ -94,15 +94,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\MenuScene.cpp" />
     <ClCompile Include="src\MenuScene.h" />
     <ClCompile Include="src\TestGame.cpp" />
     <ClCompile Include="src\TestScene.cpp" />
+    <ClCompile Include="src\TestScene2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameScripts.h" />
     <ClInclude Include="src\TestGame.h" />
+    <ClInclude Include="src\TestScene.h" />
+    <ClInclude Include="src\TestScene2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,11 +3,7 @@
 
 namespace ProjectAlpha {
 Game::Game() {
-
 	Init();
-
-	//Initilize scripts:
-	Script::m_game = this;
 }
 
 void Game::Run() {
@@ -34,6 +30,9 @@ void Game::Init() {
 	//Set Renderer to window
 	m_renderer.SetRenderWindowTarget(m_window);
 
+	//Initilize scripts:
+	Script::Init(this);
+
 }
 
 void Game::Event() {
@@ -50,8 +49,7 @@ void Game::Event() {
 		m_window.OnEvent(event);
 
 		//Scene Events:
-		m_scene.OnEvent(&event);
-
+		Scenes.GetCurrentScene()->OnEvent(&event);
 
 		//Key Presses:
 		
@@ -67,9 +65,7 @@ void Game::Update() {
 
 	m_window.OnUpdate();
 
-	auto& entities = m_scene.GetRegistry();
-
-	m_scene.OnUpdate();
+	Scenes.GetCurrentScene()->OnUpdate();
 }
 
 void Game::Render() {
@@ -82,13 +78,8 @@ void Game::Render() {
 	//this->entities->Draw(m_renderer);
 	//or
 	//m_renderer.DrawEntities(entities);
-	auto& entities = m_scene.GetRegistry();
-
 	//Draw Squares
-
-	m_scene.OnRender(m_renderer);
-
-
+	Scenes.GetCurrentScene()->OnRender(m_renderer);
 
 	//Draw to window
 	m_renderer.DrawBufferToWindow();
