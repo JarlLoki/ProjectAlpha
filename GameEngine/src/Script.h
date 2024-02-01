@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "Scene/Entity.h"
+#include "ECS/Entity.h"
 
 namespace ProjectAlpha{
 struct ScriptComponent;

@@ -2,7 +2,7 @@
 #include "SDL.h"
 #include "entt/entt.hpp"
 #include "System.h"
-#include "../Graphics/BasicDataContainers/Rect.h"
+//#include "../Graphics/BasicDataContainers/Rect.h"
 
 namespace ProjectAlpha {
 

@@ -1,8 +1,8 @@
 #pragma once
 #include "../src/Game.h"
-#include "../src/Scene/Scene.h"
-#include "../src/Scene/Components.h"
-#include "../src/Scene/ScriptComponent.h"
+#include "../src/ECS/Scene.h"
+#include "../src/ECS/Components/Components.h"
+#include "../src/ECS/Components/ScriptComponent.h"
 #include "../src/Graphics/BasicDataContainers/Rect.h"
 
 namespace Components {

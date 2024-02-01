@@ -1,7 +1,8 @@
 #pragma once
-#include "System.h"
-#include "../Graphics/Renderer.h"
-#include "Components.h"
+#include "ECS/System.h"
+#include "ECS/Components/Components.h"
+#include "Graphics/Renderer.h"
+
 
 namespace ProjectAlpha {
 
@@ -38,6 +39,24 @@ void RenderSystem::OnRender(Renderer& renderer) {
 	else
 		viewScalar = cameraPos + cameraOffset;
 
+
+	//Render Sprites
+	////////////////////////////	
+	{
+		auto view = m_scene->GetRegistry().view<TransformComponent,
+			SpriteComponent>();
+		for (auto entity : view) {
+			auto& transform = view.get<TransformComponent>(entity);
+			auto& sprite = view.get<SpriteComponent>(entity);
+
+			Rect dstRect{ static_cast<int>(transform.Position.x) - (int)viewScalar.x,
+					   static_cast<int>(transform.Position.y) - (int)viewScalar.y,
+		               static_cast<int>(sprite.Sprite.SrcRect.w * transform.Scale),
+		               static_cast<int>(sprite.Sprite.SrcRect.h * transform.Scale) };
+
+			renderer.DrawSprite(sprite.Sprite, dstRect, zoomScale);
+		}
+	}
 
 	//Render Rectangles
 	////////////////////////////

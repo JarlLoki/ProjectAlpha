@@ -1,10 +1,10 @@
 #pragma once
-#include "System.h"
+#include "ECS/System.h"
+#include "ECS/Scene.h"
+#include "ECS/Entity.h"
 
-#include "Components.h"
-#include "Scene.h"
-#include "Entity.h"
-#include "../Graphics/BasicDataContainers/Rect.h"
+#include "ECS/Components/Components.h"
+#include "Graphics/BasicDataContainers/Rect.h"
 
 namespace ProjectAlpha {
 

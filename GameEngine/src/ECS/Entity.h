@@ -3,7 +3,7 @@
 
 #include "Scene.h"
 
-#include "../Assert.h"
+#include "Assert.h"
 
 
 namespace ProjectAlpha {
@@ -17,20 +17,20 @@ public:
 	template<typename T, typename... Args>
 	T& Add(Args&&... args) {
 
-		PA_ASSERT(!HasComponent<T>(), "Entity already has component!");
+		//PA_ASSERT(!HasComponent<T>(), "Entity already has component!");
 		return m_scene->m_entities.emplace<T>(m_entityHandle, std::forward<Args>(args)...);
 	}
 	template<typename T>
 	void Remove() {
 
-		PA_ASSERT(!HasComponent<T>(), "Component already does not exist!");
+		//PA_ASSERT(!HasComponent<T>(), "Component already does not exist!");
 		m_scene->m_entities.remove<T>(m_entityHandle);
 	}
 
 	template<typename T>
 	T& Get() {
 
-		PA_ASSERT(!HasComponent<T>(), "Entity does not have this Component!");
+		//PA_ASSERT(!HasComponent<T>(), "Entity does not have this Component!");
 		return m_scene->m_entities.get<T>(m_entityHandle);
 	}
 

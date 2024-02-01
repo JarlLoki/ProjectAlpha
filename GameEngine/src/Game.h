@@ -3,10 +3,7 @@
 #include "Graphics/Window.h"
 #include "Graphics/Renderer.h"
 #include "Graphics/FontManager.h"
-#include "Scene/SceneManager.h"
-#include "Scene/Entity.h"
-#include "Scene/Components.h"
-#include "Scene/System.h"
+#include "ECS/SceneManager.h"
 #include "Script.h"
 
 #include "Log.h"

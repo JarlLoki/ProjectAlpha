@@ -6,7 +6,7 @@
 
 namespace ProjectAlpha {
 
-class LayerManager {
+class LayerStack{
 public:
 	void AddLayer(Layer* layer) {}
 	

@@ -176,7 +176,7 @@ void Renderer::DrawTexture(const Texture &texture, Vector2D position, float scal
 void Renderer::DrawSprite(const Sprite &sprite, Rect dst, float scale) {
 	Texture& texture = GetTexture(sprite);
 
-	//DrawTexture(texture, dst, scale);
+	DrawTexture(texture, dst, scale);
 }
 
 

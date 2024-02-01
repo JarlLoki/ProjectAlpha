@@ -12,14 +12,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ProjectAlpha.h" />
-    <ClInclude Include="src\Assert.h" />
+    <ClInclude Include="src\ECS\Components\AnimatorComponent.h" />
+    <ClInclude Include="src\ECS\Systems\AnimationSystem.h" />
     <ClInclude Include="src\Graphics\Camera.h" />
     <ClInclude Include="src\Graphics\FontManager.h" />
     <ClInclude Include="src\Layer.h" />
-    <ClInclude Include="src\LayerManager.h" />
-    <ClInclude Include="src\Scene\CameraSystem.h" />
-    <ClInclude Include="src\Scene\Components.h" />
-    <ClInclude Include="src\ECS\ECS.h" />
+    <ClInclude Include="src\LayerStack.h" />
+    <ClInclude Include="src\ECS\Systems\CameraSystem.h" />
+    <ClInclude Include="src\ECS\Components\Components.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\Graphics\Animation.h" />
     <ClInclude Include="src\Graphics\BasicDataContainers\Color.h" />
@@ -32,15 +32,15 @@
     <ClInclude Include="src\Graphics\Texture.h" />
     <ClInclude Include="src\Graphics\Window.h" />
     <ClInclude Include="src\Log.h" />
-    <ClInclude Include="src\Scene\Entity.h" />
-    <ClInclude Include="src\Scene\MovementSystem.h" />
-    <ClInclude Include="src\Scene\RenderSystem.h" />
-    <ClInclude Include="src\Scene\Scene.h" />
-    <ClInclude Include="src\Scene\SceneManager.h" />
-    <ClInclude Include="src\Scene\ScriptComponent.h" />
-    <ClInclude Include="src\Scene\ScriptSystem.h" />
-    <ClInclude Include="src\Scene\System.h" />
-    <ClInclude Include="src\Scene\CollisionSystem.h" />
+    <ClInclude Include="src\ECS\Entity.h" />
+    <ClInclude Include="src\ECS\Systems\MovementSystem.h" />
+    <ClInclude Include="src\ECS\Systems\RenderSystem.h" />
+    <ClInclude Include="src\ECS\Scene.h" />
+    <ClInclude Include="src\ECS\SceneManager.h" />
+    <ClInclude Include="src\ECS\Components\ScriptComponent.h" />
+    <ClInclude Include="src\ECS\Systems\ScriptSystem.h" />
+    <ClInclude Include="src\ECS\System.h" />
+    <ClInclude Include="src\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="src\Script.h" />
   </ItemGroup>
   <ItemGroup>
@@ -53,8 +53,8 @@
     <ClCompile Include="src\Graphics\Text.cpp" />
     <ClCompile Include="src\Graphics\Window.cpp" />
     <ClCompile Include="src\Log.cpp" />
-    <ClCompile Include="src\Scene\Entity.cpp" />
-    <ClCompile Include="src\Scene\Scene.cpp" />
+    <ClCompile Include="src\ECS\Entity.cpp" />
+    <ClCompile Include="src\ECS\Scene.cpp" />
     <ClCompile Include="src\Script.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -96,10 +96,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -108,6 +110,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,6 +126,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -1,17 +1,18 @@
 #include "Scene.h"
 #include "Entity.h"
-#include "Components.h"
-#include "RenderSystem.h"
-#include "ScriptSystem.h"
-#include "CollisionSystem.h"
-#include "MovementSystem.h"
+#include "Components/Components.h"
+#include "Systems/RenderSystem.h"
+#include "Systems/ScriptSystem.h"
+#include "Systems/CollisionSystem.h"
+#include "Systems/MovementSystem.h"
+#include "Systems/AnimationSystem.h"
 
 namespace ProjectAlpha {
 Scene::Scene() {
 	AddSystem<ScriptSystem>();
 	AddSystem<MovementSystem>();
 	AddSystem<CollisionSystem>();
-
+	AddSystem<AnimationSystem>();
 	AddSystem<RenderSystem>();
 }
 Scene::Scene(std::string name) {
@@ -19,7 +20,7 @@ Scene::Scene(std::string name) {
 	AddSystem<ScriptSystem>();
 	AddSystem<MovementSystem>();
 	AddSystem<CollisionSystem>();
-
+	AddSystem<AnimationSystem>();
 	AddSystem<RenderSystem>();
 
 

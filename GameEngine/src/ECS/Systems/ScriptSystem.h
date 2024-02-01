@@ -1,6 +1,6 @@
 #pragma once
-#include "System.h"
-#include "ScriptComponent.h"
+#include "ECS/System.h"
+#include "ECS/Components/ScriptComponent.h"
 namespace ProjectAlpha {
 
 struct ScriptSystem : public System {

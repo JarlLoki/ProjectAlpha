@@ -1,10 +1,10 @@
 #pragma once
+#include "../../Graphics/BasicDataContainers/Vector2D.h"
+#include "../../Graphics/BasicDataContainers/Rect.h"
+#include "../../Graphics/BasicDataContainers/Color.h"
 
-#include "../Graphics/BasicDataContainers/Vector2D.h"
-#include "../Graphics//BasicDataContainers/Rect.h"
-#include "../Graphics//BasicDataContainers/Color.h"
-
-#include "../Graphics/Text.h"
+#include "../../Graphics/Text.h"
+#include "../../Graphics/Sprite.h"
 
 namespace ProjectAlpha {
 
@@ -129,6 +129,12 @@ struct TextComponent {
 
 	TextComponent() = default;
 	//TextComponent(const TextComponent&) = default;
+};
+
+struct SpriteComponent {
+	Sprite Sprite;
+
+	SpriteComponent() = default;
 };
 
 
