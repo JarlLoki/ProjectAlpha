@@ -1,3 +1,5 @@
+#include "SDL.h"
+
 #include "Scene.h"
 #include "Entity.h"
 #include "Components/Components.h"
@@ -50,8 +52,20 @@ void Scene::OnRender(Renderer& renderer) {
 	}
 }
 
+
+
 Entity Scene::GetEntity(entt::entity id) { 
 	return Entity(id, this); 
+}
+
+Entity Scene::GetEntityByName(std::string name) {
+	auto entities = GetEntitiesWith<TagComponent>();
+	for (auto entity : entities) {
+		const auto& tag = entities.get<TagComponent>(entity);
+		if (tag.GetTag() == name)
+			return Entity{ entity, this };
+	}
+	return {};
 }
 
 } //END namespace ProjectAlpha

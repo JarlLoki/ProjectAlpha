@@ -12,7 +12,13 @@ Window::Window(const std::string& title,
 		PA_LOG_ERROR("SDL Initilization failed.");
 	}
 	else {
+		SDL_version version;
+		SDL_VERSION(&version);
+
 		PA_LOG_INFO("SDL Intilized successfully.");
+		PA_LOG_INFO("SDL Version: " + std::to_string(version.major) + "." +
+			                          std::to_string(version.minor) + "." +
+			                          std::to_string(version.patch));
 	}
 
 	m_window = SDL_CreateWindow(m_title.c_str(),

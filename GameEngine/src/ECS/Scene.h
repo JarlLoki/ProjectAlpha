@@ -1,11 +1,9 @@
 #pragma once
-#include "SDL.h"
 #include "entt/entt.hpp"
 #include "System.h"
-//#include "../Graphics/BasicDataContainers/Rect.h"
+
 
 namespace ProjectAlpha {
-
 class Entity;
 class Renderer;
 
@@ -27,6 +25,10 @@ public:
 
 	inline entt::registry& GetRegistry() { return m_entities; }
 	Entity GetEntity(entt::entity id);
+	Entity GetEntityByName(std::string name);
+
+	template<typename... Components>
+	auto GetEntitiesWith();
 
 protected:
 	std::string m_name;
@@ -39,10 +41,15 @@ protected:
 
 //Add System
 template <typename T>
-inline void Scene::AddSystem() {
+ void Scene::AddSystem() {
 	std::unique_ptr<System> system = std::make_unique<T>();
 	system->m_scene = this;
 	m_systems.push_back(std::move(system));
+}
+
+template<typename ... Components>
+ auto Scene::GetEntitiesWith() {
+	return m_entities.view<Components...>();
 }
 
 

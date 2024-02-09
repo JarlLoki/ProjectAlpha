@@ -1,4 +1,6 @@
 #pragma once
+#include "ECS/Entity.h"
+
 #include "../../Graphics/BasicDataContainers/Vector2D.h"
 #include "../../Graphics/BasicDataContainers/Rect.h"
 #include "../../Graphics/BasicDataContainers/Color.h"

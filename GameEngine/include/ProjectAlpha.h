@@ -1,9 +1,16 @@
 #pragma once
 #include "../src/Game.h"
+#include "../src/Graphics/Graphics.h"
+#include "../src/Graphics/Sprite.h"
+//#include "../src/Graphics/Animation.h"
+
+#include "../src/ECS/Entity.h"
 #include "../src/ECS/Scene.h"
+#include "../src/ECS/System.h"
 #include "../src/ECS/Components/Components.h"
 #include "../src/ECS/Components/ScriptComponent.h"
-#include "../src/Graphics/BasicDataContainers/Rect.h"
+#include "../src/ECS/Components/AnimatorComponent.h"
+
 
 namespace Components {
 	using Tag = ProjectAlpha::TagComponent;

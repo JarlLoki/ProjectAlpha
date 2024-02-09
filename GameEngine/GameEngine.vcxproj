@@ -16,6 +16,10 @@
     <ClInclude Include="src\ECS\Systems\AnimationSystem.h" />
     <ClInclude Include="src\Graphics\Camera.h" />
     <ClInclude Include="src\Graphics\FontManager.h" />
+    <ClInclude Include="src\Graphics\Graphics.h" />
+    <ClInclude Include="src\Graphics\Image.h" />
+    <ClInclude Include="src\Graphics\ImageManager.h" />
+    <ClInclude Include="src\Graphics\TextureManager.h" />
     <ClInclude Include="src\Layer.h" />
     <ClInclude Include="src\LayerStack.h" />
     <ClInclude Include="src\ECS\Systems\CameraSystem.h" />
@@ -44,13 +48,17 @@
     <ClInclude Include="src\Script.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECS\System.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Graphics\BasicDataContainers\Point.cpp" />
     <ClCompile Include="src\Graphics\BasicDataContainers\Rect.cpp" />
     <ClCompile Include="src\Graphics\BasicDataContainers\Vector2D.cpp" />
     <ClCompile Include="src\Graphics\FontManager.cpp" />
+    <ClCompile Include="src\Graphics\Graphics.cpp" />
+    <ClCompile Include="src\Graphics\ImageManager.cpp" />
     <ClCompile Include="src\Graphics\Renderer.cpp" />
     <ClCompile Include="src\Graphics\Text.cpp" />
+    <ClCompile Include="src\Graphics\TextureManager.cpp" />
     <ClCompile Include="src\Graphics\Window.cpp" />
     <ClCompile Include="src\Log.cpp" />
     <ClCompile Include="src\ECS\Entity.cpp" />

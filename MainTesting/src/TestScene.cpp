@@ -1,9 +1,140 @@
 #include "TestScene.h"
+
 #include "TestGame.h"
 #include "GameScripts.h"
 
 
+/*/
+struct AnimationProperties {
+	unsigned int AnimationID = 0;
+	std::string SpriteSheet = "";
+	int NumOfFrames = 0;
+	int FrameWidth = 0;
+	int FrameHeight = 0;
+	int SheetRow = 0;
+	int SheetCol = 0;
+	int FrameDelay = 0;
+};
+*/
+
+namespace Hero::Animations {
+enum Animations {
+	Idle,
+	IdleDown,
+	IdleLeft,
+	IdleUp,
+	IdleRight,
+	Run,
+	RunDown,
+	RunLeft,
+	RunUp,
+	RunRight,
+	Attack,
+	AttackDown,
+	AttackLeft,
+	AttackUp,
+	AttackRight
+};
+}
+
+namespace Hero {
+
+namespace PA = ProjectAlpha;
+
+void CreateMyAnimations(TestGame* game) {
+
+	PA::Entity otherHero;
+	auto& animator = otherHero.Get<PA::AnimatorComponent>();
+
+	PA::AnimationProperties animProps;
+	animProps.SpriteSheet = "assets/myotherhero_spritesheet.png";
+	animProps.FrameWidth = 32;
+	animProps.FrameHeight = 32;
+	animProps.SheetCol = 0;
+
+	//Idle
+	animProps.AnimationID = Animations::IdleDown;
+	animProps.SheetRow = 0;
+	animProps.NumOfFrames = 3;
+	animProps.FrameDelay = 300;
+	for (int i = 0; i < 4; i++) {
+		animProps.AnimationID += i;
+		animProps.SheetRow += i;
+		animator.Animations[animProps.AnimationID] = PA::Animation(animProps);
+	}
+	//Run
+	animProps.AnimationID = Animations::RunDown;
+	animProps.SheetRow = 4;
+	animProps.NumOfFrames = 6;
+	animProps.FrameDelay = 200;
+	for (int i = 0; i < 4; i++) {
+		animProps.AnimationID += i;
+		animProps.SheetRow += i;
+		animator.Animations[animProps.AnimationID] = PA::Animation(animProps);
+	}
+
+	//Run
+	animProps.AnimationID = Animations::AttackDown;
+	animProps.SheetRow = 8;
+	animProps.NumOfFrames = 5;
+	animProps.FrameDelay = 150;
+	for (int i = 0; i < 4; i++) {
+		animProps.AnimationID += i;
+		animProps.SheetRow += i;
+		animator.Animations[animProps.AnimationID] = PA::Animation(animProps);
+	}
+
+
+	
+
+	{
+		std::string myheroSheet = "assets/myhero_spritesheet.png";
+
+		PA::Entity hero;
+
+		auto& animator = hero.Get<PA::AnimatorComponent>();
+
+		//Idle Animation
+
+		auto frames = PA::CreateFrames(myheroSheet, 50, 50, 5, 0, 0);
+		animator.Animations[Animations::IdleDown] = { Animations::IdleDown, frames, 200 };
+
+		frames = PA::CreateFrames(myheroSheet, 50, 50, 5, 1, 0);
+		animator.Animations[Animations::Run] = { Animations::Run, frames, 200 };
+
+		frames = PA::CreateFrames(myheroSheet, 50, 50, 5, 2, 0);
+		animator.Animations[Animations::Attack] = { Animations::Attack, frames, 200 };
+
+
+		frames = PA::CreateFrames(myheroSheet, 50, 50, 5, 0, 0);
+		PA::Animation idle = { Animations::Idle, frames, 200 };
+
+
+		PA::Animation run = { Animations::Run,
+							  PA::CreateFrames(myheroSheet, 50, 50, 5, 1, 0),
+							  200 };
+
+		frames = PA::CreateFrames(myheroSheet, 50, 50, 5, 3, 0);
+		PA::Animation attack = { Animations::Attack, frames, 150 };
+
+
+		frames = PA::CreateFrames(myheroSheet, 50, 50, 5, 0, 0);
+		animator.Animations[Animations::Idle] = { Animations::Idle, frames, 200 };
+
+	}
+}
+
+void MakeMyEntity(TestGame* game) {
+
+}
+}
+
 TestScene::TestScene(TestGame* game) : Scene("Test") {
+
+	//Load Resources
+	//game->Textures.LoadTextureFromFile("assets/MyTexture.png");
+	game->GetRenderer().LoadTextureFromFile("assets/rando/my_texture.png");
+
 
 	//Make BLue Square
 	{

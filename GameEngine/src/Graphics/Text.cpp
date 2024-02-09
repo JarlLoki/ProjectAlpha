@@ -22,15 +22,15 @@ RenderedText::RenderedText(Text text, Texture texture)
 	: Text(text), m_texture(texture) {}
 
 RenderedText::~RenderedText() {
-	if (!m_texture.data) {
-		SDL_DestroyTexture(m_texture.data);
-		m_texture.data = nullptr;
+	if (!m_texture.Data) {
+		SDL_DestroyTexture(m_texture.Data);
+		m_texture.Data = nullptr;
 	}
 }
 
 Texture RenderedText::GetTexture() const { return m_texture; }
-int RenderedText::GetWdith() const { return m_texture.SrcRect.w; }
-int RenderedText::GetHeight() const { return m_texture.SrcRect.h; }
+int RenderedText::GetWdith() const { return m_texture.Width; }
+int RenderedText::GetHeight() const { return m_texture.Height; }
 
 bool operator == (const RenderedText& lvalue, const Text& rvalue) {
 	if (lvalue.GetFontName() == rvalue.GetFontName() &&

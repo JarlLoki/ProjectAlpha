@@ -1,8 +1,8 @@
 #pragma once
-#include "Scene.h"
-
 #include <map>
 #include <memory>
+
+#include "ECS/Scene.h"
 
 namespace ProjectAlpha {
 

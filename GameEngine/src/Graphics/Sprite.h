@@ -6,11 +6,11 @@ namespace ProjectAlpha {
 
 struct Sprite {
 	Sprite() {
-		SpriteSheetPath = "";
+		SpriteSheet = "";
 		SrcRect = { 0,0,0,0 };
 		BindingBox = { 0,0,0,0 };
 	}
-	std::string  SpriteSheetPath;
+	std::string  SpriteSheet;
 	Rect SrcRect;
 	Rect BindingBox;
 };

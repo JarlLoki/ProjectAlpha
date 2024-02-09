@@ -1,18 +1,19 @@
 #pragma once
+#include <string>
 #include "SDL.h"
 #include "BasicDataContainers/Rect.h"
 
 namespace ProjectAlpha {
 
+using TextureID = uint32_t;
+
 struct Texture {
-	Texture() {
-		data = nullptr;
-		SrcRect = { 0,0,0,0 };
-		BindingBox = { 0,0,0,0 };
-	}
-	SDL_Texture* data;
-	Rect SrcRect;
-	Rect BindingBox;
+	std::string FileName;
+	SDL_Texture* Data = nullptr;
+	int Width = 0;
+	int Height = 0;
+	//Rect SrcRect;
+	//Rect BindingBox;
 
 };
 

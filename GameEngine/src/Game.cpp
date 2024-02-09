@@ -1,9 +1,20 @@
 #include "Game.h"
-//#include "Log.h"
 
 namespace ProjectAlpha {
 Game::Game() {
 	Init();
+}
+
+void Game::Init() {
+	//Set Renderer to window
+	m_renderer.SetRenderWindowTarget(m_window);
+
+	//Initilize Systems
+
+
+	//Initilize scripts:
+	Script::Init(this);
+	System::Init(this);
 }
 
 void Game::Run() {
@@ -26,14 +37,7 @@ void Game::Run() {
 }
 
 
-void Game::Init() {
-	//Set Renderer to window
-	m_renderer.SetRenderWindowTarget(m_window);
 
-	//Initilize scripts:
-	Script::Init(this);
-
-}
 
 void Game::Event() {
 	SDL_Event event;

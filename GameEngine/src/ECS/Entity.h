@@ -1,18 +1,19 @@
 #pragma once
-
-
 #include "Scene.h"
 
-#include "Assert.h"
-
-
 namespace ProjectAlpha {
-
 class Entity {
 public:
 	Entity() = default;
 	Entity(entt::entity handle, Scene* scene);
 	Entity(const Entity& other) = default;
+	
+	bool IsValid() { 
+		if (m_entityHandle != entt::null && m_scene != nullptr)
+			return true;
+		else
+			return false;
+	}
 
 	template<typename T, typename... Args>
 	T& Add(Args&&... args) {
