@@ -6,7 +6,7 @@ namespace ProjectAlpha {
 struct MovementSystem : public System {
 	void OnUpdate() override {
 		auto view = m_scene->GetRegistry().view<TransformComponent, 
-                                    			PhysicsComponent>();
+                                    			PhysicsComponent>(entt::exclude<ParentComponent>);
 
 		for (auto entity : view){
 			auto& transform = view.get<TransformComponent>(entity);

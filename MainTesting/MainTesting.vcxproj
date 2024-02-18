@@ -93,6 +93,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\AnimationTestScene.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MenuScene.cpp" />
     <ClCompile Include="src\MenuScene.h" />
@@ -104,6 +105,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Adventure.h" />
+    <ClInclude Include="src\AnimationTestScene.h" />
     <ClInclude Include="src\GameScripts.h" />
     <ClInclude Include="src\TestGame.h" />
     <ClInclude Include="src\TestScene.h" />

@@ -10,7 +10,6 @@
 
 namespace ProjectAlpha {
 
-SDL_Surface* GetSurface(std::string fileName);
 
 inline void SDL_CropSurface(SDL_Surface* surface, SDL_Rect rect) {
 	SDL_Surface* clippedSurface = SDL_CreateRGBSurface(

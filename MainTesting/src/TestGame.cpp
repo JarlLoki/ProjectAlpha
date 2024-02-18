@@ -2,10 +2,11 @@
 #include "TestScene.h"
 #include "TestScene2.h"
 #include "MenuScene.h"
+#include "AnimationTestScene.h"
 
 
 
-
+//ProjectAlpha::ImageManager TestGame::ImageAssets;
 
 TestGame::TestGame() {
 	//Load Fonts
@@ -13,14 +14,14 @@ TestGame::TestGame() {
 	this->GetRenderer().Fonts.SetDefaultFont("assets/fonts/arial/arial", 24);
 
 	//Load Scenes:
-	Scenes.LoadScene<TestScene>(this);
-	Scenes.LoadScene<TestScene2>(this);
+	//Scenes.LoadScene<TestScene>(this);
+	//Scenes.LoadScene<TestScene2>(this);
 
-	Scenes.LoadScene<MenuScene>(this);
-	
+	//Scenes.LoadScene<MenuScene>(this);
+	Scenes.LoadScene<AnimationTest>(this);
 
 	//Set Current Scene:
-	Scenes.SetCurrentScene("Test");
+	Scenes.SetCurrentScene("AnimTest");
 
 	/*
 	using namespace ProjectAlpha;

@@ -37,14 +37,15 @@ public:
 
 	void LoadTextureFromFile(std::string filePath);
 	void LoadTextureFromImage(Image image);
-	void LoadAllTexturesFromImages(ImageManager images);
+	void LoadAllTexturesFromImages(const ImageManager& images);
 	void UnloadTexture(std::string filePath);
 
 	//Draw Functions
 	void DrawTexture(const Texture& texture, Vector2D pos, float scale);
-	void DrawTexture(const Texture& texture, Rect src, Vector2D pos, float scale);
+	void DrawTexture(const Texture& texture, Rect src, Rect dst, float scale);
 	void DrawSprite(const SpriteComponent& sprite, 
 		            const TransformComponent& transform,
+					Vector2D view,
 					float scale);
 
 	//Basic Draw Functions

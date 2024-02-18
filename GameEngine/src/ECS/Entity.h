@@ -15,6 +15,10 @@ public:
 			return false;
 	}
 
+	//This will set a Destroy flag and the entitiy and its children will 
+	//be destroyed at the end of the update loop.
+	void Kill();
+
 	template<typename T, typename... Args>
 	T& Add(Args&&... args) {
 
@@ -49,6 +53,7 @@ public:
 	}
 
 	operator bool() const { return static_cast<uint32_t>(m_entityHandle) != 0; }
+	operator entt::entity() const { return m_entityHandle; }
 private:
 	entt::entity m_entityHandle{ entt::null };
 	Scene* m_scene = nullptr;

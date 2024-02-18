@@ -15,10 +15,11 @@ public:
 	std::string GetName() { return m_name; }
 
 	Entity CreateEntity(std::string tag);
+	void DestroyEntity(Entity entity); 
 
 	void OnEvent(SDL_Event* event);
 	void OnUpdate();
-	void OnRender(Renderer& renderer);
+	//void OnRender(Renderer& renderer);
 	
 	template <typename T>
 	void AddSystem();

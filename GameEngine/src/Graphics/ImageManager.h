@@ -15,7 +15,7 @@ public:
 	void UnloadImage(std::string filePath);
 	Image GetImage(std::string filePath);
 
-	const std::unordered_map<std::string, Image>& GetLoadedImages();
+	const std::unordered_map<std::string, Image>& GetLoadedImages() const;
 	//const auto& GetLoadedImages();
 
 private:

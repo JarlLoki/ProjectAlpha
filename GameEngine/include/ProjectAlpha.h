@@ -10,6 +10,7 @@
 #include "../src/ECS/Components/Components.h"
 #include "../src/ECS/Components/ScriptComponent.h"
 #include "../src/ECS/Components/AnimatorComponent.h"
+#include "../src/ECS/Components/StateMachineComponent.h"
 
 
 namespace Components {
@@ -17,6 +18,10 @@ namespace Components {
 	using Transform = ProjectAlpha::TransformComponent;
 	using Physics = ProjectAlpha::PhysicsComponent;
 	using Camera = ProjectAlpha::CameraComponent;
-	using Text = ProjectAlpha::TextComponent;
+	using Text = ProjectAlpha::TextComponent;	
+	using Sprite = ProjectAlpha::SpriteComponent;
+	using Animator = ProjectAlpha::AnimatorComponent;
+	using StateMachine = ProjectAlpha::StateMachineComponent;
+	using Script = ProjectAlpha::ScriptComponent;
 	
 }

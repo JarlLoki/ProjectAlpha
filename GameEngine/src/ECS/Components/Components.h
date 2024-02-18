@@ -140,4 +140,17 @@ struct SpriteComponent {
 };
 
 
+struct ParentComponent {
+	Entity Parent = {};
+};
+
+struct ChildrenComponent {
+	std::vector<Entity> Children;
+};
+
+struct DestroyFlag {
+	DestroyFlag() = default;
+	bool IsAlive = false;
+};
+
 } //END namespace ProjectAlpha

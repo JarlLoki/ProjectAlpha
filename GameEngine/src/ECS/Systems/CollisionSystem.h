@@ -211,18 +211,20 @@ struct CollisionSystem : public System {
 				auto& colliderA = view.get<ColliderComponent>(entityidA);
 
 				auto& transformB = view.get<TransformComponent>(entityidB);
-				auto& colliderB = view.get<ColliderComponent>(entityidB);
+				auto& colliderB = view.get<ColliderComponent>(entityidB);	
 
 				//Create Entity A and B hitboxes:
 				Rect hitboxA;
 				hitboxA = colliderA.rect;
 				hitboxA.x += static_cast<int>(transformA.Position.x);
 				hitboxA.y += static_cast<int>(transformA.Position.y);
+				//If it has a parent, adds parent position!
 
 				Rect hitboxB;
 				hitboxB = colliderB.rect;
 				hitboxB.x += static_cast<int>(transformB.Position.x);
 				hitboxB.y += static_cast<int>(transformB.Position.y);
+				//If it has a parent, adds parent position!
 
 
 

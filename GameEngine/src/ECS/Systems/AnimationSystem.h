@@ -32,7 +32,7 @@ void AnimationSystem::OnUpdate() {
 		auto frameDelay = animator.Animations[animator.m_animID].FrameDelay;
 
 		auto& frameIndex = animator.m_frameIndex;
-		auto numOfFrames = animator.Animations[animator.m_animID].Frames.size();
+		int numOfFrames = (int)animator.Animations[animator.m_animID].Frames.size();
 
 		//Set Reference to sprite in the Sprite Component
 		auto& sprite = view.get<SpriteComponent>(entity).Sprite;

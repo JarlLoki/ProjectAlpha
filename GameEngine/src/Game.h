@@ -28,7 +28,7 @@ public:
 	//Add a layer stack?
 	SceneManager Scenes;//Maybe expand the Scenemanger to be the a layer
 	//TextureManager Textures;
-	ImageManager ImageAssets;
+	static ImageManager ImageAssets;
 
 private:
 	void Init();

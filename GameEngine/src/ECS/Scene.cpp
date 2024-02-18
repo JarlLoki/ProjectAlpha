@@ -8,6 +8,7 @@
 #include "Systems/CollisionSystem.h"
 #include "Systems/MovementSystem.h"
 #include "Systems/AnimationSystem.h"
+#include "Systems/StateMachineSystem.h"
 
 namespace ProjectAlpha {
 Scene::Scene() {
@@ -15,6 +16,7 @@ Scene::Scene() {
 	AddSystem<MovementSystem>();
 	AddSystem<CollisionSystem>();
 	AddSystem<AnimationSystem>();
+	AddSystem<StateMachineSystem>();
 	AddSystem<RenderSystem>();
 }
 Scene::Scene(std::string name) {
@@ -23,15 +25,23 @@ Scene::Scene(std::string name) {
 	AddSystem<MovementSystem>();
 	AddSystem<CollisionSystem>();
 	AddSystem<AnimationSystem>();
+	AddSystem<StateMachineSystem>();
 	AddSystem<RenderSystem>();
-
-
 }
 
 Entity Scene::CreateEntity(std::string tag = "Entity") {
 	Entity entity = { m_entities.create(), this };
 	entity.Add<TagComponent>(tag);
 	return entity;
+}
+
+void Scene::DestroyEntity(Entity entity) {
+	if (entity.Has<ChildrenComponent>()) {
+		for (auto e : entity.Get<ChildrenComponent>().Children) {
+			DestroyEntity(e);
+		}
+	}
+	m_entities.destroy(entity);
 }
 
 void Scene::OnEvent(SDL_Event* event) {
@@ -44,13 +54,20 @@ void Scene::OnUpdate() {
 	for (auto& system : m_systems) {
 		system->OnUpdate();
 	}
+
+	//Remove Destroy Flagged Entities:
+	auto entities = GetEntitiesWith<DestroyFlag>();
+	entities.each([this](auto entity, auto& flag) { 
+		DestroyEntity({ entity, this }); 
+	});
+	
 }
 
-void Scene::OnRender(Renderer& renderer) {
-	for (auto& system : m_systems) {
-		system->OnRender(renderer);
-	}
-}
+//void Scene::OnRender(Renderer& renderer) {
+//	for (auto& system : m_systems) {
+//		system->OnRender(renderer);
+//	}
+//}
 
 
 

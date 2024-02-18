@@ -3,6 +3,7 @@
 #include "SDL.h"
 #include "SDL_image.h"
 
+#include "Game.h"
 #include "ECS/Components/Components.h"
 
 
@@ -115,22 +116,33 @@ std::unique_ptr<RenderedText> Renderer::RenderText(const Text& text) {
 
 
 void Renderer::LoadTextureFromFile(std::string filePath) {
-	//Check if Texture is already loaded:
+	if (filePath == "") {
+		PA_LOG_ERROR("Empty sprite filePath");
+		return;
+	}
+	//Check if Texture is already loaded: 
 	if (!m_loadedTextures[filePath].Data) {
 		Texture texture;
 		texture.FileName = filePath;
+
+		Image image = Game::ImageAssets.GetImage(filePath);
+		LoadTextureFromImage(image);
+
+		/*
 		SDL_Surface* surface = IMG_Load(filePath.c_str());
 		if (!surface) {
 			//Popup
 			std::string SDLError = std::string(IMG_GetError());
 			SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error loading Image",
 				SDLError.c_str(), NULL);
-			PA_LOG_ERROR("Failed to load image: " + SDLError + ".");
+			PA_LOG_ERROR("Failed to load image: " + filePath + ". " + SDLError + ".");
 		} else {
 			Image image = { filePath, surface };
 			LoadTextureFromImage(image);
 		}
 		SDL_FreeSurface(surface);
+		*/
+
 	}
 }
 
@@ -147,11 +159,13 @@ void Renderer::LoadTextureFromImage(Image image) {
 			PA_LOG_ERROR("Failed to create texture. " + 
 				std::string(SDL_GetError()));
 		}
+	} else {
+		PA_LOG_ERROR("Was unable to create a texture from: " + image.FileName);
 	}
 	m_loadedTextures[texture.FileName] = texture;
 }
 
-void Renderer::LoadAllTexturesFromImages(ImageManager images) {
+void Renderer::LoadAllTexturesFromImages(const ImageManager& images) {
 	auto& loadedImages = images.GetLoadedImages();
 	for (auto image : loadedImages) {
 		LoadTextureFromImage(image.second);
@@ -170,7 +184,7 @@ void Renderer::UnloadTexture(std::string filePath) {
 /////////////////////////////////
 
 void Renderer::DrawTexture(const Texture& texture, Vector2D pos, float scale) {
-	if (!texture.Data) {
+	if (texture.Data) {
 		SDL_Texture* sdlTexture = texture.Data;
 
 		SDL_Rect sdlDst = { static_cast<int>(pos.x * scale),
@@ -182,16 +196,16 @@ void Renderer::DrawTexture(const Texture& texture, Vector2D pos, float scale) {
 	}
 }
 
-void Renderer::DrawTexture(const Texture& texture, Rect src, Vector2D pos, float scale) {
-	if (!texture.Data) {
+void Renderer::DrawTexture(const Texture& texture, Rect src, Rect dst, float scale) {
+	if (texture.Data) {
 		SDL_Texture* sdlTexture = texture.Data;
 
 		SDL_Rect sdlSrc = { src.x, src.y, src.w, src.h };
 
-		SDL_Rect sdlDst = { static_cast<int>(pos.x * scale),
-							static_cast<int>(pos.y * scale),
-							static_cast<int>(src.w * scale),
-							static_cast<int>(src.h * scale) };
+		SDL_Rect sdlDst = { static_cast<int>(dst.x * scale),
+							static_cast<int>(dst.y * scale),
+							static_cast<int>(dst.w * scale),
+							static_cast<int>(dst.h * scale) };
 
 		SDL_RenderCopy(m_renderer, sdlTexture, &sdlSrc, &sdlDst);
 	}
@@ -199,14 +213,18 @@ void Renderer::DrawTexture(const Texture& texture, Rect src, Vector2D pos, float
 
 void Renderer::DrawSprite(const SpriteComponent& sprite, 
 	                      const TransformComponent& transform,
+						  Vector2D view,
 						  float scale) {
 
 	Texture texture = GetTexture(sprite.Sprite.SpriteSheet);
 	Rect src = sprite.Sprite.SrcRect;
-	Vector2D pos = transform.Position;
+	Rect dst = { static_cast<int>(transform.Position.x - view.x),
+		         static_cast<int>(transform.Position.y - view.x),
+	             static_cast<int>(src.w * transform.Scale),
+	             static_cast<int>(src.h * transform.Scale) };
 
-	if (!texture.Data) {
-		DrawTexture(texture, src, pos, scale);
+	if (texture.Data) {
+		DrawTexture(texture, src, dst, scale);
 	}
 	else {
 		//Draw a default texture?

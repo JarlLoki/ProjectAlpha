@@ -9,7 +9,7 @@ class Renderer;
 struct System {
 	virtual void OnEvent(SDL_Event* event) {}
 	virtual void OnUpdate() {}
-	virtual void OnRender(Renderer& renderer) {}
+	//virtual void OnRender(Renderer& renderer) {}
 
 private:
 	static void Init(Game* game) { m_game = game; }

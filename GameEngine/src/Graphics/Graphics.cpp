@@ -1,9 +1,9 @@
+
+#include "Game.h"
 #include "Graphics.h"
 
 namespace ProjectAlpha {
-SDL_Surface* GetSurface(std::string fileName) {
-	return nullptr;
-}
+
 //Get Pixel Functions:
 ////////////////////
 /*
@@ -128,7 +128,8 @@ Rect GetBindingBox(SDL_Surface* surface, Rect rect) {
 	return box;
 }
 Rect GetBindingBox(std::string fileName, Rect src) {
-	SDL_Surface* surface = GetSurface(fileName);
+	//SDL_Surface* surface = GetSurface(fileName);
+	SDL_Surface* surface = Game::ImageAssets.GetImage(fileName).Data;
 	return GetBindingBox(surface, src);
 }
 ////////////////////

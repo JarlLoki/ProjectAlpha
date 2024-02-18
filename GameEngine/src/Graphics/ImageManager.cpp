@@ -47,7 +47,7 @@ Image ImageManager::GetImage(std::string filePath) {
 //	return m_loadedImages;
 //}
 
-const std::unordered_map<std::string, Image>& ImageManager::GetLoadedImages() {
+const std::unordered_map<std::string, Image>& ImageManager::GetLoadedImages() const {
 	return m_loadedImages;
 }
 

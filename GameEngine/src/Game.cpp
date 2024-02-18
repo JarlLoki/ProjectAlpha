@@ -1,6 +1,8 @@
 #include "Game.h"
 
 namespace ProjectAlpha {
+ImageManager Game::ImageAssets;
+
 Game::Game() {
 	Init();
 }
@@ -28,7 +30,7 @@ void Game::Run() {
 
 		Event();
 		Update();
-		Render();
+		//Render();
 
 		delay_ticks = SDL_GetTicks() - starting_ticks;
 		if ((frame_delay / target_fps) > delay_ticks)
@@ -83,7 +85,7 @@ void Game::Render() {
 	//or
 	//m_renderer.DrawEntities(entities);
 	//Draw Squares
-	Scenes.GetCurrentScene()->OnRender(m_renderer);
+	//Scenes.GetCurrentScene()->OnRender(m_renderer);
 
 	//Draw to window
 	m_renderer.DrawBufferToWindow();

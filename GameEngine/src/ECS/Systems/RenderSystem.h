@@ -8,11 +8,12 @@
 namespace ProjectAlpha {
 
 struct RenderSystem : public System {
-	void OnRender(Renderer& renderer) override;
+	//void OnRender(Renderer& renderer) override;
 	void OnUpdate() override;
 };
 
 void RenderSystem::OnUpdate() {
+	m_game->GetRenderer().ResetDrawBuffer();
 	
 	//Find Camera:
 	//////////////////
@@ -53,7 +54,7 @@ void RenderSystem::OnUpdate() {
 			auto& transform = entity.Get<TransformComponent>();
 			auto& sprite = entity.Get<SpriteComponent>();
 
-			m_game->GetRenderer().DrawSprite(sprite, transform, zoomScale);
+			m_game->GetRenderer().DrawSprite(sprite, transform, viewScalar, zoomScale);
 
 			//m_game->GetRenderer().DrawTexture(texture, src, dst, zoomScale);
 
@@ -87,9 +88,14 @@ void RenderSystem::OnUpdate() {
 	{
 		auto group = m_scene->GetRegistry().group<TransformComponent,
 			TextComponent>();
-		for (auto entity : group) {
-			auto& transform = group.get<TransformComponent>(entity);
-			auto& cText = group.get<TextComponent>(entity);
+
+		auto group2 = m_scene->GetEntitiesWith<TransformComponent, TextComponent>();
+		for (auto entityID : group) {
+			Entity entity = { entityID, m_scene };
+			auto& transform = entity.Get<TransformComponent>();
+			auto& cText = entity.Get<TextComponent>();
+			 
+
 
 			//Create a Text
 			Text uText = { cText.FontName, cText.FontSize,
@@ -103,8 +109,16 @@ void RenderSystem::OnUpdate() {
 			//Draw Rendered Text
 			if (cText.RenderedText) {
 
+
 				Vector2D position{ transform.Position.x + cText.Position.x,
 							   transform.Position.y + cText.Position.y };
+
+				//Add Parents position
+				if (entity.Has<ParentComponent>()) {
+					Entity parent = entity.Get<ParentComponent>().Parent;
+					auto& parentTransform = parent.Get<TransformComponent>();
+					position += parentTransform.Position;
+				}
 
 				position.x = static_cast<float>((int)position.x - (int)viewScalar.x);
 				position.y = static_cast<float>((int)position.y - (int)viewScalar.y);
@@ -120,9 +134,11 @@ void RenderSystem::OnUpdate() {
 		}
 
 	}
+	m_game->GetRenderer().DrawBufferToWindow();
 
 }
 
+/*
 void RenderSystem::OnRender(Renderer& renderer) {
 
 	//m_scene->GetEntities();
@@ -170,16 +186,17 @@ void RenderSystem::OnRender(Renderer& renderer) {
 
 
 
-			renderer.DrawSprite(sprite, transform, zoomScale);
+			renderer.DrawSprite(sprite, transform, viewScalar, zoomScale);
 
 			/*Idea:
 					
 			Texture.Data = AssetManager.GetTextureData(Texture.ID);
 			renderer.DrawTexture(Texture, position, zoomScale);
-			*/
+			//
 
-		}
-	}
+	//	}
+	//}
+	//
 
 	//Render Rectangles
 	////////////////////////////
@@ -238,8 +255,9 @@ void RenderSystem::OnRender(Renderer& renderer) {
 		}
 
 	}
+	
 }
-
+*/
 
 
 
