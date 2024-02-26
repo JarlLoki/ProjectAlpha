@@ -12,16 +12,20 @@
 #include "../src/ECS/Components/AnimatorComponent.h"
 #include "../src/ECS/Components/StateMachineComponent.h"
 
+namespace PA = ProjectAlpha;
 
 namespace Components {
 	using Tag = ProjectAlpha::TagComponent;
 	using Transform = ProjectAlpha::TransformComponent;
 	using Physics = ProjectAlpha::PhysicsComponent;
+	using Collider = ProjectAlpha::ColliderComponent;
 	using Camera = ProjectAlpha::CameraComponent;
 	using Text = ProjectAlpha::TextComponent;	
 	using Sprite = ProjectAlpha::SpriteComponent;
 	using Animator = ProjectAlpha::AnimatorComponent;
 	using StateMachine = ProjectAlpha::StateMachineComponent;
 	using Script = ProjectAlpha::ScriptComponent;
+	using Parent = ProjectAlpha::ParentComponent;
+	using Children = ProjectAlpha::ChildrenComponent;
 	
 }

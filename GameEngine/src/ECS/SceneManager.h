@@ -24,6 +24,21 @@ public:
 			T(std::forward<TArgs>(mArgs)...))));
 		m_loadedScenes[scene->GetName()] = scene;
 	}
+
+	/*this used a raw pointer and isnt safe*/
+	void AddScene(Scene* scene) {
+		m_loadedScenes[scene->GetName()] = std::shared_ptr<Scene>(scene);
+	}
+
+	void AddScene(std::shared_ptr<Scene> scene) {
+		m_loadedScenes[scene->GetName()] = scene;
+	}
+
+	std::shared_ptr<Scene> CreateScene(std::string name) {
+		m_loadedScenes[name] = std::make_shared<Scene>(Scene(name));
+		return m_loadedScenes[name];
+	}
+	
 private:
 	std::shared_ptr<Scene> m_currentScene;
 	std::map<std::string, std::shared_ptr<Scene>> m_loadedScenes;

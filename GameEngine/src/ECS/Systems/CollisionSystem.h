@@ -32,6 +32,7 @@ void ResolveSolidCollision(Entity entityA,
 	Rect curHitboxA = hitboxA;
 
 	//Get EntityA previous hitbox
+	//If it has a parent, adds parent position! //TODO
 	Rect prevHitboxA = curHitboxA;
 	if (entityA.Has<PhysicsComponent>()) {
 		auto& physicsA = entityA.Get<PhysicsComponent>();
@@ -48,6 +49,7 @@ void ResolveSolidCollision(Entity entityA,
 	Rect curHitboxB = hitboxB;
 
 	//Get EntityA previous hitbox
+	//If it has a parent, adds parent position! //TODO
 	Rect prevHitboxB = curHitboxB;
 	if (entityB.Has<PhysicsComponent>()) {
 		auto& physicsB = entityB.Get<PhysicsComponent>();
@@ -214,17 +216,28 @@ struct CollisionSystem : public System {
 				auto& colliderB = view.get<ColliderComponent>(entityidB);	
 
 				//Create Entity A and B hitboxes:
-				Rect hitboxA;
-				hitboxA = colliderA.rect;
-				hitboxA.x += static_cast<int>(transformA.Position.x);
-				hitboxA.y += static_cast<int>(transformA.Position.y);
 				//If it has a parent, adds parent position!
+				Rect hitboxA;
+				Vector2D posA = transformA.Position;
+				if (entityA.Has<ParentComponent>()) {
+					Entity parent = entityA.Get<ParentComponent>().Parent;
+					posA += parent.Get<TransformComponent>().Position;
+				}
+				hitboxA = colliderA.rect;
+				hitboxA.x += static_cast<int>(posA.x);
+				hitboxA.y += static_cast<int>(posA.y);
+			
 
 				Rect hitboxB;
+				Vector2D posB = transformA.Position;
+				if (entityB.Has<ParentComponent>()) {
+					Entity parent = entityB.Get<ParentComponent>().Parent;
+					posB = parent.Get<TransformComponent>().Position;
+				}
 				hitboxB = colliderB.rect;
-				hitboxB.x += static_cast<int>(transformB.Position.x);
-				hitboxB.y += static_cast<int>(transformB.Position.y);
-				//If it has a parent, adds parent position!
+				hitboxB.x += static_cast<int>(posB.x);
+				hitboxB.y += static_cast<int>(posB.y);
+
 
 
 

@@ -7,20 +7,43 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MainTesting", "MainTesting\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEngine", "GameEngine\GameEngine.vcxproj", "{42832965-C22D-40E1-86CF-C86ED75D9D8D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Space Invaders", "Space Invaders\Space Invaders.vcxproj", "{FB6181D4-6507-485F-92B9-35F1A3C5E188}"
+	ProjectSection(ProjectDependencies) = postProject
+		{42832965-C22D-40E1-86CF-C86ED75D9D8D} = {42832965-C22D-40E1-86CF-C86ED75D9D8D}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{42832965-C22D-40E1-86CF-C86ED75D9D8D}.Debug|x64.ActiveCfg = Debug|x64
-		{42832965-C22D-40E1-86CF-C86ED75D9D8D}.Debug|x64.Build.0 = Debug|x64
-		{42832965-C22D-40E1-86CF-C86ED75D9D8D}.Release|x64.ActiveCfg = Release|x64
-		{42832965-C22D-40E1-86CF-C86ED75D9D8D}.Release|x64.Build.0 = Release|x64
 		{F0718231-10A7-4154-A3FE-40370BFA8ECF}.Debug|x64.ActiveCfg = Debug|x64
 		{F0718231-10A7-4154-A3FE-40370BFA8ECF}.Debug|x64.Build.0 = Debug|x64
+		{F0718231-10A7-4154-A3FE-40370BFA8ECF}.Debug|x86.ActiveCfg = Debug|x64
+		{F0718231-10A7-4154-A3FE-40370BFA8ECF}.Debug|x86.Build.0 = Debug|x64
 		{F0718231-10A7-4154-A3FE-40370BFA8ECF}.Release|x64.ActiveCfg = Release|x64
 		{F0718231-10A7-4154-A3FE-40370BFA8ECF}.Release|x64.Build.0 = Release|x64
+		{F0718231-10A7-4154-A3FE-40370BFA8ECF}.Release|x86.ActiveCfg = Release|x64
+		{F0718231-10A7-4154-A3FE-40370BFA8ECF}.Release|x86.Build.0 = Release|x64
+		{42832965-C22D-40E1-86CF-C86ED75D9D8D}.Debug|x64.ActiveCfg = Debug|x64
+		{42832965-C22D-40E1-86CF-C86ED75D9D8D}.Debug|x64.Build.0 = Debug|x64
+		{42832965-C22D-40E1-86CF-C86ED75D9D8D}.Debug|x86.ActiveCfg = Debug|x64
+		{42832965-C22D-40E1-86CF-C86ED75D9D8D}.Debug|x86.Build.0 = Debug|x64
+		{42832965-C22D-40E1-86CF-C86ED75D9D8D}.Release|x64.ActiveCfg = Release|x64
+		{42832965-C22D-40E1-86CF-C86ED75D9D8D}.Release|x64.Build.0 = Release|x64
+		{42832965-C22D-40E1-86CF-C86ED75D9D8D}.Release|x86.ActiveCfg = Release|x64
+		{42832965-C22D-40E1-86CF-C86ED75D9D8D}.Release|x86.Build.0 = Release|x64
+		{FB6181D4-6507-485F-92B9-35F1A3C5E188}.Debug|x64.ActiveCfg = Debug|x64
+		{FB6181D4-6507-485F-92B9-35F1A3C5E188}.Debug|x64.Build.0 = Debug|x64
+		{FB6181D4-6507-485F-92B9-35F1A3C5E188}.Debug|x86.ActiveCfg = Debug|Win32
+		{FB6181D4-6507-485F-92B9-35F1A3C5E188}.Debug|x86.Build.0 = Debug|Win32
+		{FB6181D4-6507-485F-92B9-35F1A3C5E188}.Release|x64.ActiveCfg = Release|x64
+		{FB6181D4-6507-485F-92B9-35F1A3C5E188}.Release|x64.Build.0 = Release|x64
+		{FB6181D4-6507-485F-92B9-35F1A3C5E188}.Release|x86.ActiveCfg = Release|Win32
+		{FB6181D4-6507-485F-92B9-35F1A3C5E188}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

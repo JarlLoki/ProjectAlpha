@@ -25,6 +25,9 @@ private:
 
 
 struct TransformComponent {
+	//TransformComponent() = default;
+	//TransformComponent(float x, float y) : Position(x, y) {}
+
 	Vector2D Position = 0.0f;
 	float Rotation = 0.0f;
 	float Scale = 1.0f;
