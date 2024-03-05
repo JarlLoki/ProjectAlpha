@@ -23,6 +23,14 @@ Renderer::~Renderer() {
 void Renderer::SetRenderWindowTarget(Window& window) {
 	m_renderer = window.CreateRenderer();
 }
+void Renderer::SetLogicalRenderSize(int w, int h) {
+	SDL_RenderSetLogicalSize(m_renderer, w, h);
+}
+Size Renderer::GetLogicalRenderSize() {
+	Size size;
+	SDL_RenderGetLogicalSize(m_renderer, &size.w, &size.h);
+	return size;
+}
 void Renderer::ResetDrawBuffer() {
 	SDL_SetRenderDrawColor(m_renderer,
 		0, 0, 0, 0);
@@ -218,6 +226,10 @@ void Renderer::DrawSprite(const SpriteComponent& sprite,
 
 	Texture texture = GetTexture(sprite.Sprite.SpriteSheet);
 	Rect src = sprite.Sprite.SrcRect;
+	if (src == 0) {
+		src.w = texture.Width;
+		src.h = texture.Height;
+	}
 	Rect dst = { static_cast<int>(transform.Position.x - view.x),
 		         static_cast<int>(transform.Position.y - view.x),
 	             static_cast<int>(src.w * transform.Scale),
@@ -260,6 +272,11 @@ void Renderer::DrawLine(Vector2D src, Vector2D dst, Color color, float scale) {
 
 }
 
+
+void Renderer::SetViewPort(Rect viewport) {
+	SDL_Rect sdlViewport = { viewport.x, viewport.y, viewport.w, viewport.h };
+	SDL_RenderSetViewport(m_renderer, &sdlViewport);
+}
 
 Rect Renderer::GetViewPort() const {
 	SDL_Rect viewport;

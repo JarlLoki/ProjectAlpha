@@ -4,6 +4,8 @@
 #include "../src/Graphics/Sprite.h"
 //#include "../src/Graphics/Animation.h"
 
+#include "../src/Input/Keyboard.h"
+
 #include "../src/ECS/Entity.h"
 #include "../src/ECS/Scene.h"
 #include "../src/ECS/System.h"

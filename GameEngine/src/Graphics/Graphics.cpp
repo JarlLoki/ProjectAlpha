@@ -3,7 +3,11 @@
 #include "Graphics.h"
 
 namespace ProjectAlpha {
-
+Size GetDesktopDisplayResolution() {
+	SDL_DisplayMode dm;
+	SDL_GetDesktopDisplayMode(0, &dm);
+	return Size(dm.w, dm.h);
+}
 //Get Pixel Functions:
 ////////////////////
 /*
@@ -127,6 +131,11 @@ Rect GetBindingBox(SDL_Surface* surface, Rect rect) {
 
 	return box;
 }
+Rect GetBindingBox(std::string fileName) {
+	SDL_Surface* surface = Game::ImageAssets.GetImage(fileName).Data;
+	return GetBindingBox(surface);
+}
+
 Rect GetBindingBox(std::string fileName, Rect src) {
 	//SDL_Surface* surface = GetSurface(fileName);
 	SDL_Surface* surface = Game::ImageAssets.GetImage(fileName).Data;

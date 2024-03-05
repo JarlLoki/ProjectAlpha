@@ -31,7 +31,12 @@ public:
 	}
 
 	void AddScene(std::shared_ptr<Scene> scene) {
-		m_loadedScenes[scene->GetName()] = scene;
+		//m_loadedScenes[scene->GetName()] = scene;
+		m_loadedScenes[scene->GetName()] = std::move(scene);
+	}
+
+	void RemoveScene(std::string sceneID) {
+		m_loadedScenes[sceneID].reset();
 	}
 
 	std::shared_ptr<Scene> CreateScene(std::string name) {

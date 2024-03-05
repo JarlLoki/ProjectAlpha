@@ -2,12 +2,32 @@
 
 namespace ProjectAlpha {
 ImageManager Game::ImageAssets;
+Audio::AudioMixer Game::AudioAssets;
 
 Game::Game() {
+	
+	Init();
+}
+
+Game::Game(WindowProperties windowProps) : m_window(windowProps) {
 	Init();
 }
 
 void Game::Init() {
+
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+		//Error Check
+		PA_LOG_ERROR("SDL Initilization failed.");
+	} else {
+		SDL_version version;
+		SDL_VERSION(&version);
+
+		PA_LOG_INFO("SDL Intilized successfully.");
+		PA_LOG_INFO("SDL Version: " + std::to_string(version.major) + "." +
+			std::to_string(version.minor) + "." +
+			std::to_string(version.patch));
+	}
+
 	//Set Renderer to window
 	m_renderer.SetRenderWindowTarget(m_window);
 
@@ -49,10 +69,25 @@ void Game::Event() {
 		case SDL_QUIT:
 			m_isRunning = false;
 			break;
+		case SDL_KEYDOWN:
+			//On first key press, then ignores key being held:
+			if (event.key.repeat == 0) {
+				switch (event.key.keysym.sym) {
+				
+				//Toggle drawing hitboxes
+				case SDLK_F2:					
+					m_renderer.DrawHitBoxes(!m_renderer.DrawHitBoxes());
+				}
+
+			}
+
 		}
 
 		//Window Events:
 		m_window.OnEvent(event);
+
+		//Game Events
+		OnEvent(&event);
 
 		//Scene Events:
 		Scenes.GetCurrentScene()->OnEvent(&event);
@@ -70,8 +105,11 @@ void Game::Event() {
 void Game::Update() {
 
 	m_window.OnUpdate();
-
+	OnUpdate();
 	Scenes.GetCurrentScene()->OnUpdate();
+	//Scenes.GetCurrentScene()->OnRender();
+	//Scenes.GetCurrentScene()->Cleanup();
+	
 }
 
 void Game::Render() {

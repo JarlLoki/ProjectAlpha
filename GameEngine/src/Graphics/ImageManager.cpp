@@ -17,16 +17,19 @@ ImageManager::~ImageManager() {
 }
 
 void ImageManager::LoadImageFromFile(std::string filePath) {
-	SDL_Surface* surface = IMG_Load(filePath.c_str());
-	if (!surface) {
-		//Popup
-		std::string SDLError = std::string(IMG_GetError());
-		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error loading Image",
-			SDLError.c_str(), NULL);
-		PA_LOG_ERROR("Failed to load image: " + SDLError + ".");
-		surface = nullptr;
-	} 
-	m_loadedImages[filePath] = { filePath, surface };
+	//Make sure the image isnt already loaded:
+	if (!m_loadedImages[filePath].Data) {
+		SDL_Surface* surface = IMG_Load(filePath.c_str());
+		if (!surface) {
+			//Popup
+			std::string SDLError = std::string(IMG_GetError());
+			SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error loading Image",
+				SDLError.c_str(), NULL);
+			PA_LOG_ERROR("Failed to load image: " + SDLError + ".");
+			surface = nullptr;
+		}
+		m_loadedImages[filePath] = { filePath, surface };
+	}
 }
 
 void ImageManager::UnloadImage(std::string filePath) {

@@ -13,7 +13,7 @@ struct RenderSystem : public System {
 };
 
 void RenderSystem::OnUpdate() {
-	m_game->GetRenderer().ResetDrawBuffer();
+	m_game->GetRenderer().ResetDrawBuffer();//this shouldnt be happening here
 	
 	//Find Camera:
 	//////////////////
@@ -45,9 +45,34 @@ void RenderSystem::OnUpdate() {
 	//Render Sprites:
 	//////////////////
 	{
+		//can't sort this?
 		auto entities = m_scene->GetEntitiesWith<SpriteComponent, 
 			TransformComponent>();
-		for (auto entityID : entities) {
+
+		/*
+		* using a group instead which I was able to sort
+		*/
+		auto group = m_scene->GetRegistry().group<SpriteComponent>(entt::get<TransformComponent>);
+		//Sort algo:
+		group.sort([group](const entt::entity a, const entt::entity b) {
+			auto e1Transform = group.get<TransformComponent>(a);
+			const auto& e1sprite = group.get<SpriteComponent>(a);
+
+			auto e2Transform = group.get<TransformComponent>(b);
+			const auto& e2sprite = group.get<SpriteComponent>(b);
+
+			/*TODO: Add sorting by position!*/
+
+			//Only checking for layer right now:
+			//If in a lower layer then draw first:
+			return e1sprite.DrawLayer < e2sprite.DrawLayer;
+			});
+
+		/*
+		*Was able to just swamp the view for the group and all the existing
+		*code worked!
+		*/
+		for (auto entityID : group) {
 
 			Entity entity = { entityID, m_scene };
 
@@ -57,7 +82,7 @@ void RenderSystem::OnUpdate() {
 
 			//I think this is more optimizied:
 			auto transform = entities.get<TransformComponent>(entityID);
-			auto& sprite = entities.get<SpriteComponent>(entityID);
+			const auto& sprite = entities.get<SpriteComponent>(entityID);
 
 			if (entity.Has<ParentComponent>()) {
 				Entity parent = entity.Get<ParentComponent>().Parent;
@@ -69,6 +94,32 @@ void RenderSystem::OnUpdate() {
 		}
 	}
 
+	//Render Hitboxes:	
+	//////////////////
+	if (m_game->GetRenderer().DrawHitBoxes()) {
+		auto entities = m_scene->GetEntitiesWith<TransformComponent, ColliderComponent>();
+		for (auto entityID : entities) {
+			auto transform = entities.get<TransformComponent>(entityID);
+			const auto& collider = entities.get<ColliderComponent>(entityID);
+
+			//Get the collider rect;
+			Rect rect = collider.rect;
+
+			//add entities tranform position to the rect:
+			rect.x += (int)transform.Position.x;
+			rect.y += (int)transform.Position.y;
+
+			//If it has a parent then add its parent position as well:
+			Entity entity = { entityID, m_scene };
+			if (entity.Has<ParentComponent>()) {
+				auto parent = entity.Get<ParentComponent>().Parent;
+				auto parentPos = parent.Get<TransformComponent>().Position;
+				rect.x += (int)parentPos.x;
+				rect.y += (int)parentPos.y;
+			}
+			m_game->GetRenderer().DrawRect(rect, { 255,0,0,0 }, false, 1);
+		}
+	}
 
 	//Render Primitives:	
 	//////////////////

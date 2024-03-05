@@ -1,5 +1,6 @@
 #include "Rect.h"
-
+#include "Size.h"
+#include "Point.h"
 
 namespace ProjectAlpha {
 
@@ -7,9 +8,18 @@ namespace ProjectAlpha {
 	x(nX), y(nY), w(nW), h(nH) {
 }
 
+ Rect::Rect(Point point, Size size) :
+	x(point.x), y(point.y), w(size.w), h(size.h) {
+ }
+
 //inline SDL_Rect Rect::ToSDL_Rect() const {
 //	return SDL_Rect(x, y, w, h);
 //}
+
+ void Rect::operator+=(const Point& rv_point) {
+	 x += rv_point.x;
+	 y += rv_point.y;
+ }
 
  void Rect::operator*=(const float& rv_float) {
 	x = static_cast<int>(x * rv_float);
@@ -45,7 +55,11 @@ namespace ProjectAlpha {
 	return false;
 }
 
-Rect operator*(const Rect& lv, const float& rv_float) {
+ Rect operator+(const Point& lv, const Size& rv) {
+	 return Rect(lv,rv);
+ }
+
+ Rect operator*(const Rect& lv, const float& rv_float) {
 	Rect r;
 	r.x = static_cast<int>(lv.x * rv_float);
 	r.y = static_cast<int>(lv.y * rv_float);

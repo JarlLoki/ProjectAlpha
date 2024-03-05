@@ -214,6 +214,11 @@ struct CollisionSystem : public System {
 
 				auto& transformB = view.get<TransformComponent>(entityidB);
 				auto& colliderB = view.get<ColliderComponent>(entityidB);	
+				
+				bool test = false;
+				if (colliderA.Tag == "Bullet" && colliderB.Tag == "Invader") {
+					test = true;
+				}
 
 				//Create Entity A and B hitboxes:
 				//If it has a parent, adds parent position!
@@ -229,10 +234,10 @@ struct CollisionSystem : public System {
 			
 
 				Rect hitboxB;
-				Vector2D posB = transformA.Position;
+				Vector2D posB = transformB.Position;
 				if (entityB.Has<ParentComponent>()) {
 					Entity parent = entityB.Get<ParentComponent>().Parent;
-					posB = parent.Get<TransformComponent>().Position;
+					posB += parent.Get<TransformComponent>().Position;
 				}
 				hitboxB = colliderB.rect;
 				hitboxB.x += static_cast<int>(posB.x);

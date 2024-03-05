@@ -29,6 +29,10 @@ Scene::Scene(std::string name) {
 	AddSystem<RenderSystem>();
 }
 
+Scene::~Scene() {
+	m_entities.clear();
+}
+
 Entity Scene::CreateEntity(std::string tag = "Entity") {
 	Entity entity = { m_entities.create(), this };
 	entity.Add<TagComponent>(tag);
@@ -36,6 +40,20 @@ Entity Scene::CreateEntity(std::string tag = "Entity") {
 }
 
 void Scene::DestroyEntity(Entity entity) {
+	//Check if entity has a parent
+	if (entity.Has<ParentComponent>()) {
+		auto parent = entity.Get<ParentComponent>();
+		//Check if deleted entity's parent keeps track of its children:
+		if (parent.Parent.Has<ChildrenComponent>()) {
+			//Delete the child from the list of children:
+			auto& children = parent.Parent.Get<ChildrenComponent>().Children;
+			children.erase(std::remove_if(children.begin(), children.end(),
+				[entity](Entity e) { 
+					return e == entity; 
+				}), 
+				children.end());
+		}
+	}
 	if (entity.Has<ChildrenComponent>()) {
 		for (auto e : entity.Get<ChildrenComponent>().Children) {
 			DestroyEntity(e);
@@ -45,29 +63,41 @@ void Scene::DestroyEntity(Entity entity) {
 }
 
 void Scene::OnEvent(SDL_Event* event) {
-	for (auto& system : m_systems) {
-		system->OnEvent(event);
+	if (!m_paused) {
+		for (auto& system : m_systems) {
+			system->OnEvent(event);
+		}
 	}
 }
 
 void Scene::OnUpdate() {
-	for (auto& system : m_systems) {
-		system->OnUpdate();
-	}
+	if (!m_paused) {
+		for (auto& system : m_systems) {
+			system->OnUpdate();
+		}
 
-	//Remove Destroy Flagged Entities:
-	auto entities = GetEntitiesWith<DestroyFlag>();
-	entities.each([this](auto entity, auto& flag) { 
-		DestroyEntity({ entity, this }); 
-	});
-	
+		//Remove Destroy Flagged Entities:
+		auto entities = GetEntitiesWith<DestroyFlag>();
+		entities.each([this](auto entity, auto& flag) {
+			DestroyEntity({ entity, this });
+			});
+	}
 }
 
 //void Scene::OnRender(Renderer& renderer) {
-//	for (auto& system : m_systems) {
-//		system->OnRender(renderer);
-//	}
+//	RenderSystem->OnUpdate();
 //}
+
+
+
+
+void Scene::Cleanup() {
+	if (!m_paused) {
+		//Do entitiy cleanup here
+	}
+}
+
+
 
 
 

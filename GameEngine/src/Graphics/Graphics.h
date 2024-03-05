@@ -3,6 +3,7 @@
 #include "SDL.h"
 
 #include "BasicDataContainers/Point.h"
+#include "BasicDataContainers/Size.h"
 #include "BasicDataContainers/Rect.h"
 #include "BasicDataContainers/Color.h"
 #include "BasicDataContainers/Vector2D.h"
@@ -10,6 +11,7 @@
 
 namespace ProjectAlpha {
 
+Size GetDesktopDisplayResolution();
 
 inline void SDL_CropSurface(SDL_Surface* surface, SDL_Rect rect) {
 	SDL_Surface* clippedSurface = SDL_CreateRGBSurface(
@@ -61,6 +63,8 @@ Rect GetBindingBox(SDL_Surface* surface);
 Rect GetBindingBox(SDL_Surface* surface, Rect rect);
 ////////////////////
 
+
+Rect GetBindingBox(std::string fileName);
 Rect GetBindingBox(std::string fileName, Rect src);
 
 }

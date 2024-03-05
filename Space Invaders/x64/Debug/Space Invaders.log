@@ -1,0 +1,10 @@
+﻿  main.cpp
+C:\Projects\Dev\C++\Games\ProjectAlpha\Space Invaders\src\Entities\InvaderGroup.h(16,74): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Dev\C++\Games\ProjectAlpha\Space Invaders\src\Entities\InvaderGroup.h(21,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Dev\C++\Games\ProjectAlpha\Space Invaders\src\Entities\InvaderGroup.h(27,22): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\Dev\C++\Games\ProjectAlpha\Space Invaders\src\Entities\InvaderGroup.h(29,22): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\Dev\C++\Games\ProjectAlpha\Space Invaders\src\Entities\InvaderGroup.h(58,65): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Projects\Dev\C++\Games\ProjectAlpha\Space Invaders\src\Entities\InvaderGroup.h(59,65): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Projects\Dev\C++\Games\ProjectAlpha\Space Invaders\src\SpaceInvaders.h(32,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Projects\Dev\C++\Games\ProjectAlpha\Space Invaders\src\SpaceInvaders.h(33,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Space Invaders.vcxproj -> C:\Projects\Dev\C++\Games\ProjectAlpha\x64\Debug\Space Invaders.exe

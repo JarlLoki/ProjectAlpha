@@ -56,7 +56,8 @@ void AnimationSystem::OnUpdate() {
 						frameIndex = 0;
 						frameTimeStart = SDL_GetTicks();
 						//Update Sprite
-						sprite = frames[frameIndex];
+						//sprite = frames[frameIndex];
+						//just update the sprite at the end
 					}
 					//If loop isnt true then just keep it on the last frame
 					//Dont reset FrameStart time
@@ -70,10 +71,12 @@ void AnimationSystem::OnUpdate() {
 				else {
 					frameTimeStart = SDL_GetTicks();
 					//Update Sprite
-					sprite = frames[frameIndex];
+					//sprite = frames[frameIndex]; //This can just be done
+					//at the end
 				}
 			}
 		}
+		sprite = frames[frameIndex];
 	}
 }
 

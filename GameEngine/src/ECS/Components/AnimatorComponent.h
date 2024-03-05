@@ -12,6 +12,10 @@ struct AnimationSystem;
 struct AnimatorComponent {
 	std::unordered_map<AnimationID, Animation> Animations;
 
+	void Add(AnimationProperties props) {
+		Animations[props.AnimationID] = { props };
+	}
+
 	void Start(AnimationID id, bool loop) {
 		m_animID = id;
 		m_frameIndex = 0;

@@ -2,10 +2,8 @@
 namespace ProjectAlpha {
 
 struct Point {
-	Point(int pX = 0, int pY = 0) : x(pX), y(pY) {}
 	int x;
 	int y;
-
 
 /*
 	void operator=(const int val);

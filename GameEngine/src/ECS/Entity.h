@@ -52,6 +52,11 @@ public:
 		//return false;
 	}
 
+	inline Scene* const GetScene() { return m_scene; }
+
+	bool operator==(const Entity& rvalue) const { 
+		return m_entityHandle == rvalue.m_entityHandle;
+	}
 	operator bool() const { return static_cast<uint32_t>(m_entityHandle) != 0; }
 	operator entt::entity() const { return m_entityHandle; }
 private:

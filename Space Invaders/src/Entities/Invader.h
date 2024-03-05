@@ -1,6 +1,14 @@
 #pragma once
 #include "ProjectAlpha.h"
-namespace Entities::SpaceInvader {
+namespace Entities::Invader {
+const std::string Name = "Invader";
+
+namespace Scripts {
+struct InvaderLogic;
+
+void OnCollision(PA::Entity entityA, PA::Entity entityB);
+
+}//END namespace Scripts
 
 namespace Animations {
 enum {
@@ -18,21 +26,10 @@ const std::string Move_Tock = "assets/sounds/doo_tock.wav";
 namespace SpriteSheets {
 const std::string Invader = "assets/graphics/invader.png";
 const std::string Death = "assets/graphics/invader_death.png";
-}
+}//END namespace SpriteSheets
 
+void InitAssets();
 
-ProjectAlpha::Entity Create(ProjectAlpha::Scene* scene) {
-	auto entity = scene->CreateEntity("Invader");
-	entity.Add<Components::Transform>();
-	entity.Add<Components::Physics>();
-	entity.Add<Components::Collider>();
-	entity.Add<Components::Sprite>();
-	entity.Add<Components::Animator>();
-	entity.Add<Components::StateMachine>();
-	entity.Add<Components::Script>();
-	entity.Add<Components::Parent>();
-
-	return entity;
-}
+ProjectAlpha::Entity Create(ProjectAlpha::Scene* scene);
 
 }//END namespace Entities::Invader

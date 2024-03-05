@@ -27,6 +27,8 @@ public:
 	void SetRenderWindowTarget(Window& window);
 
 	//
+	void SetLogicalRenderSize(int w, int h);
+	Size GetLogicalRenderSize();
 
 	void ResetDrawBuffer();
 	void DrawBufferToWindow();
@@ -39,6 +41,8 @@ public:
 	void LoadTextureFromImage(Image image);
 	void LoadAllTexturesFromImages(const ImageManager& images);
 	void UnloadTexture(std::string filePath);
+
+
 
 	//Draw Functions
 	void DrawTexture(const Texture& texture, Vector2D pos, float scale);
@@ -53,12 +57,18 @@ public:
 	void DrawLine(Vector2D src, Vector2D dst, Color color, float scale);
 	
 	//Viewport
+	void SetViewPort(Rect viewport);
+
 	Rect GetViewPort() const;
 	int GetViewPortWidth() const;
 	int GetViewPortHeight() const;
 
 	//		
 	FontManager Fonts;//move this
+
+	//debugging
+	void DrawHitBoxes(bool draw) { m_drawHitboxes = draw; }
+	bool DrawHitBoxes() { return m_drawHitboxes; }
 
 private:	
 	Texture& GetTexture(std::string filePath);
@@ -67,6 +77,8 @@ private:
 private:
 	SDL_Renderer* m_renderer = nullptr;
 	std::map<std::string, Texture> m_loadedTextures;
+
+	bool m_drawHitboxes = false;//for debugging
 
 };
 

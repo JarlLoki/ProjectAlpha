@@ -11,6 +11,8 @@ class Scene {
 public:
 	Scene();
 	Scene(std::string name);
+	Scene(const Scene&) {}
+	~Scene();
 
 	std::string GetName() { return m_name; }
 
@@ -20,6 +22,7 @@ public:
 	void OnEvent(SDL_Event* event);
 	void OnUpdate();
 	//void OnRender(Renderer& renderer);
+	void Cleanup();
 	
 	template <typename T>
 	void AddSystem();
@@ -31,10 +34,17 @@ public:
 	template<typename... Components>
 	auto GetEntitiesWith();
 
+	void TogglePause() { m_paused = !m_paused; }
+	void Pause() { m_paused = true; }
+	void Resume() { m_paused = false; }
+
 protected:
 	std::string m_name;
 	entt::registry m_entities;
 	std::vector<std::unique_ptr<System>> m_systems;
+	std::unique_ptr<System> m_renderSystem;
+
+	bool m_paused = false;
 
 	friend class Entity;
 };

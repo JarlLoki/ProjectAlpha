@@ -34,6 +34,7 @@ struct TransformComponent {
 
 	TransformComponent() = default;
 	TransformComponent(float x, float y) : Position({ x,y }) {}
+	TransformComponent(int x, int y) : Position({ (float)x, (float)y }) {}
 	TransformComponent(const TransformComponent&) = default;
 	//TransformComponent(Vector2D position = 
 	//	{0.0f,0.0f}, float rotation = 0.0f, float scale = 1.0f)
@@ -138,6 +139,7 @@ struct TextComponent {
 
 struct SpriteComponent {
 	Sprite Sprite;
+	int DrawLayer = 50;
 
 	SpriteComponent() = default;
 };
