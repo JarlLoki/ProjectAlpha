@@ -2,15 +2,24 @@
 #include <vector>
 #include <memory>
 
+#include "SDL.h"
+
 #include "Layer.h"
 
 namespace ProjectAlpha {
 
-class LayerStack{
+class LayerStack {
 public:
-	void AddLayer(Layer* layer) {}
-	
-	//std::vector<std::unique_ptr<Layer>>::iterator Begin
+	LayerStack() = default;
+	LayerStack(const LayerStack&) = delete;
+	LayerStack& operator=(const LayerStack&) = delete;
+
+	void OnEvent(SDL_Event* event);
+	void OnUpdate();
+
+	void AddLayer(Layer* layer);
+
+	Layer* operator[](std::string layerName);
 private:
 	std::vector<std::unique_ptr<Layer>> m_layers;
 

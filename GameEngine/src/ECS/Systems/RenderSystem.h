@@ -13,7 +13,7 @@ struct RenderSystem : public System {
 };
 
 void RenderSystem::OnUpdate() {
-	m_game->GetRenderer().ResetDrawBuffer();//this shouldnt be happening here
+
 	
 	//Find Camera:
 	//////////////////
@@ -198,7 +198,7 @@ void RenderSystem::OnUpdate() {
 		}
 
 	}
-	m_game->GetRenderer().DrawBufferToWindow();
+	//m_game->GetRenderer().DrawBufferToWindow();
 
 }
 

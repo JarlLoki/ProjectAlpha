@@ -38,6 +38,11 @@ public:
 	void Pause() { m_paused = true; }
 	void Resume() { m_paused = false; }
 
+	void ToggleHide() { m_hide = !m_hide; }
+	void Hide() { m_hide = true; }
+	void Show() { m_hide = false; }
+
+
 protected:
 	std::string m_name;
 	entt::registry m_entities;
@@ -45,6 +50,7 @@ protected:
 	std::unique_ptr<System> m_renderSystem;
 
 	bool m_paused = false;
+	bool m_hide = false;
 
 	friend class Entity;
 };

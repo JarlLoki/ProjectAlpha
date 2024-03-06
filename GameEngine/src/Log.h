@@ -10,7 +10,7 @@ public:
 	~Log() = default;
 
 	//static void Print(const char* type, const char* message, bool repeat);
-	static void Print(std::string type, std::string msg, bool repeat);
+	static const void Print(std::string type, std::string msg, bool repeat);
 
 
 private:

@@ -14,7 +14,7 @@ Game::Game(WindowProperties windowProps) : m_window(windowProps) {
 }
 
 void Game::Init() {
-
+	
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		//Error Check
 		PA_LOG_ERROR("SDL Initilization failed.");
@@ -89,8 +89,10 @@ void Game::Event() {
 		//Game Events
 		OnEvent(&event);
 
+		Layers.OnEvent(&event);
+
 		//Scene Events:
-		Scenes.GetCurrentScene()->OnEvent(&event);
+		//Scenes.GetCurrentScene()->OnEvent(&event);
 
 		//Key Presses:
 		
@@ -103,13 +105,13 @@ void Game::Event() {
 }
 
 void Game::Update() {
+	m_renderer.ResetDrawBuffer();
 
 	m_window.OnUpdate();
 	OnUpdate();
-	Scenes.GetCurrentScene()->OnUpdate();
-	//Scenes.GetCurrentScene()->OnRender();
-	//Scenes.GetCurrentScene()->Cleanup();
-	
+	Layers.OnUpdate();
+
+	m_renderer.DrawBufferToWindow();
 }
 
 void Game::Render() {

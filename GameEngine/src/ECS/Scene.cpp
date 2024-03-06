@@ -17,7 +17,9 @@ Scene::Scene() {
 	AddSystem<CollisionSystem>();
 	AddSystem<AnimationSystem>();
 	AddSystem<StateMachineSystem>();
-	AddSystem<RenderSystem>();
+	//AddSystem<RenderSystem>();
+	m_renderSystem = std::make_unique<RenderSystem>();
+	m_renderSystem->m_scene = this;
 }
 Scene::Scene(std::string name) {
 	m_name = name;
@@ -26,7 +28,9 @@ Scene::Scene(std::string name) {
 	AddSystem<CollisionSystem>();
 	AddSystem<AnimationSystem>();
 	AddSystem<StateMachineSystem>();
-	AddSystem<RenderSystem>();
+	//AddSystem<RenderSystem>();
+	m_renderSystem = std::make_unique<RenderSystem>();
+	m_renderSystem->m_scene = this;
 }
 
 Scene::~Scene() {
@@ -71,11 +75,19 @@ void Scene::OnEvent(SDL_Event* event) {
 }
 
 void Scene::OnUpdate() {
+	//Update:
 	if (!m_paused) {
 		for (auto& system : m_systems) {
 			system->OnUpdate();
 		}
+	}
+	//Render:
+	if (!m_hide) {
+		m_renderSystem->OnUpdate();
+	}
 
+	//Cleanup:
+	if (!m_paused) {
 		//Remove Destroy Flagged Entities:
 		auto entities = GetEntitiesWith<DestroyFlag>();
 		entities.each([this](auto entity, auto& flag) {

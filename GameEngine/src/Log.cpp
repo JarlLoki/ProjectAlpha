@@ -10,7 +10,7 @@ std::map<std::string, bool> Log::m_alreadyPrinted;
 Log::Log() {
 }
 
-void Log::Print(std::string type, std::string msg, bool repeat = true) {
+const void Log::Print(std::string type, std::string msg, bool repeat = true) {
 	std::string sMsg = std::string(type) + ": " + std::string(msg);
 
 	if (repeat || !m_alreadyPrinted[sMsg]) {

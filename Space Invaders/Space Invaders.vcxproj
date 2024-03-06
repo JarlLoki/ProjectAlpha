@@ -154,6 +154,7 @@
     <ClInclude Include="src\Entities\Invader.h" />
     <ClInclude Include="src\Entities\InvaderGroup.h" />
     <ClInclude Include="src\Entities\LevelBackground.h" />
+    <ClInclude Include="src\Layers\MenuLayer.h" />
     <ClInclude Include="src\Scenes\GameData.h" />
     <ClInclude Include="src\Scenes\InvaderScenes.h" />
     <ClInclude Include="src\Scenes\Level1.h" />

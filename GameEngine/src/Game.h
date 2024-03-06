@@ -9,6 +9,7 @@
 #include "Audio/AudioMixer.h"
 //#include "Graphics/FontManager.h"
 //#include "Graphics/TextureManager.h"
+#include "LayerStack.h"
 #include "ECS/SceneManager.h"
 #include "Script.h"
 
@@ -27,7 +28,8 @@ public:
 	inline Window& GetWindow() { return m_window; }
 	inline Renderer& GetRenderer() { return m_renderer; }
 	//Add a layer stack?
-	SceneManager Scenes;//Maybe expand the Scenemanger to be the a layer
+	//SceneManager Scenes;//Maybe expand the Scenemanger to be the a layer
+	LayerStack Layers;
 	//TextureManager Textures;
 	static ImageManager ImageAssets;
 	static Audio::AudioMixer AudioAssets;

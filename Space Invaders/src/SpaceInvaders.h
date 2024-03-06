@@ -1,6 +1,7 @@
 #pragma once
 #include "ProjectAlpha.h"
 
+#include "Layers/MenuLayer.h"
 #include "Scenes/InvaderScenes.h"
 
 const int GAME_WIDTH = 500;
@@ -13,6 +14,18 @@ PA::WindowProperties windowProps = {
 	false,
 	true,
 	true
+};
+
+const std::string LayerName = "GameLayer";
+class GamePlayLayer : public PA::Layer {
+public:
+	GamePlayLayer(std::string name = LayerName) : Layer(LayerName) {}
+
+	void OnAttach() override {
+		Scenes.AddScene(Scenes::Level1::CreateScene());
+		Scenes.SetCurrentScene(Scenes::Level1::SceneID);
+	}
+
 };
 
 
@@ -33,28 +46,28 @@ public:
 		int winW = winH * ((float)GAME_WIDTH / (float)GAME_HEIGHT);
 		m_window.SetSize(winW, winH);
 
-
-		//Load Scene:
-		//this->Scenes.LoadScene<Scenes::Level1>();
-		//this->Scenes.SetCurrentScene()
-
-		Scenes.AddScene(Scenes::Level1::CreateScene());
-		//Scenes.CreateScene("Level1");
-
-		//Scenes.LoadScene<Scenes::Level1::Level1>();
-		Scenes.SetCurrentScene(Scenes::Level1::SceneID);
-
+		Layers.AddLayer(new GamePlayLayer());
+		Layers.AddLayer(new Layers::Menu::MenuLayer());
+		Layers[Layers::Menu::LayerName]->Scenes.GetCurrentScene()->Hide();
+		
 		m_renderer.LoadAllTexturesFromImages(ImageAssets);
 	}
 
 	void OnEvent(SDL_Event* event) override {
 		switch (event->type) {
 		case SDL_WINDOWEVENT:			
-			if(event->window.event == SDL_WINDOWEVENT_FOCUS_LOST)
-				Scenes.GetCurrentScene()->Pause();
+			if (event->window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
+
+				Layers[LayerName]->Scenes.GetCurrentScene()->Pause();
+				Layers[Layers::Menu::LayerName]->Scenes.GetCurrentScene()->Show();
+			}
 			
-		    if(event->window.event ==  SDL_WINDOWEVENT_FOCUS_GAINED)
-				Scenes.GetCurrentScene()->Resume();
+			if (event->window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
+
+				Layers[LayerName]->Scenes.GetCurrentScene()->Resume();
+				Layers[Layers::Menu::LayerName]->Scenes.GetCurrentScene()->Hide();
+			}
+
 			break;
 		case SDL_KEYDOWN:
 			//On first key press, then ignores key being held:
@@ -65,23 +78,16 @@ public:
 				case SDLK_ESCAPE:
 					this->m_isRunning = false;
 					break;
+				//RESET:
 				case SDLK_r:
-
-					Scenes.AddScene(Scenes::Level1::CreateScene());
-					Scenes.SetCurrentScene(Scenes::Level1::SceneID);
+					Layers[LayerName]->Scenes.AddScene(Scenes::Level1::CreateScene());
+					Layers[LayerName]->Scenes.SetCurrentScene(Scenes::Level1::SceneID);
 					break;
-				case SDLK_p:
-					Scenes.GetCurrentScene()->TogglePause();
-					//layer[Layers::PauseSign].ToggleShow();
-					//or?:
-					/* example of how a layer could give a pause sign:
-						if(layer[Layers::Game].GetCurrentScene().IsPaused()) {
-							this->Show();
-						}
-						else {
-							this->Hide();
-						}
-					*/
+				//PAUSE:
+				case SDLK_p:					
+					Layers[LayerName]->Scenes.GetCurrentScene()->TogglePause();
+					Layers[Layers::Menu::LayerName]->Scenes.GetCurrentScene()->ToggleHide();
+		
 					break;
 				}		
 			}
